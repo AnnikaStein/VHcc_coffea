@@ -7,13 +7,13 @@ from select import select
 
 from matplotlib.pyplot import jet
 
-import coffea
+#import coffea
 from coffea import hist, processor
 from coffea.nanoevents.methods import vector
 import awkward as ak
 from utils.correction import jec,muSFs,eleSFs,init_corr
 from coffea.lumi_tools import LumiMask
-from coffea.analysis_tools import Weights
+from coffea.analysis_tools import Weights, PackedSelection
 from functools import partial
 # import numba
 from helpers.util import reduce_and, reduce_or, nano_mask_or, get_ht, normalize, make_p4
@@ -447,7 +447,7 @@ class NanoProcessor(processor.ProcessorABC):
         dataset = events.metadata['dataset']
         isRealData = not hasattr(events, "genWeight")
         
-        selection = processor.PackedSelection()
+        selection = PackedSelection()
         
         
         # AS: this is either counting events in data with weight 1, or weighted (MC)
