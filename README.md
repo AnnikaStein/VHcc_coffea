@@ -4,7 +4,7 @@ VHcc analysis framework, using coffea similar to https://github.com/Ming-Yan/Hpl
 Based on (restricted access!): https://github.com/mastrolorenzo/AnalysisTools-1 and https://gitlab.cern.ch/aachen-3a/vhcc-nano
 
 ## Setup
-! This environment should under `bash` shell! 
+! This environment should run under `bash` shell ! 
 ### Coffea installation with Miniconda
 #### only first time
 ```
@@ -97,8 +97,7 @@ jupyter notebook --ip=127.0.0.1 --port 8800 --no-browser
 `conda activate coffea`
 2. setup the proxy
 `voms-proxy-init --voms cms --vomses ~/.grid-security/vomses --valid 192:00`
-3. Run the framework
-see below
+3. Run the framework, see below
 
 
 
