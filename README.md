@@ -118,6 +118,10 @@ Or with one specific sample only:
 ```
 python runner.py  --json metadata/mcsamples_higgs_2017.json --limit 1 --wf Zll --only /ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2-6f7c69ffdbb83072d4913e5f3cf0008f/USER
 ```
+Similar with data, example:
+```
+python runner.py  --json metadata/datasamples_2017.json --limit 1 --wf Zll --only /DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017F-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER
+```
 - Samples are in `metadata`
 - Corrections in `utils/correction.py` 
 

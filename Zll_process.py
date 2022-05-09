@@ -424,16 +424,18 @@ class NanoProcessor(processor.ProcessorABC):
             #_hist_event_dict["jetflav_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, Zll_vpt_region_axis, region_axis,flav_axis, axis)
             _hist_event_dict["jetflav_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, region_axis,flav_axis, axis)
             # This looks exactly the same as the line above, what does it do?
+            # probably not needed as we only sort by CvL currently
             #_hist_event_dict["jetpn_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, Zll_vpt_region_axis, region_axis,flav_axis, axis)
-            _hist_event_dict["jetpn_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, region_axis,flav_axis, axis)
+            #_hist_event_dict["jetpn_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, region_axis,flav_axis, axis)
             
         self.event_hists = list(_hist_event_dict.keys())
     
         self._accumulator = processor.dict_accumulator(
             {**_hist_event_dict,   
-        'cutflow': processor.defaultdict_accumulator(
-                # we don't use a lambda function to avoid pickle issues
-                partial(processor.defaultdict_accumulator, int))})
+             'cutflow': processor.defaultdict_accumulator(
+                 # we don't use a lambda function to avoid pickle issues
+                 partial(processor.defaultdict_accumulator, int))
+            })
         self._accumulator['sumw'] = processor.defaultdict_accumulator(float)
 
 
@@ -585,7 +587,9 @@ class NanoProcessor(processor.ProcessorABC):
         #event_mu = events.Muon[ak.argsort(events.Muon.pt, axis=1, ascending=False)]
         event_mu = events.Muon
         # looseId >= 1 or looseId seems to be the same...
-        musel = ((event_mu.pt > 20) & (abs(event_mu.eta) < 2.4) & (event_mu.looseId >= 1) & (event_mu.pfRelIso04_all<0.25)) # but 25GeV and 0.06 for 1L, xy 0.05 z 0.2, &(abs(event_mu.dxy)<0.06)&(abs(event_mu.dz)<0.2) and tightId for 1L
+        musel = ((event_mu.pt > 20) & (abs(event_mu.eta) < 2.4) & (event_mu.looseId >= 1) & (event_mu.pfRelIso04_all<0.25))
+        # but 25GeV and 0.06 for 1L, xy 0.05 z 0.2, &(abs(event_mu.dxy)<0.06)&(abs(event_mu.dz)<0.2) and tightId for 1L
+        
         event_mu["lep_flav"] = 13*event_mu.charge
         event_mu = event_mu[musel]
         event_mu = event_mu[ak.argsort(event_mu.pt, axis=1, ascending=False)]
@@ -593,11 +597,13 @@ class NanoProcessor(processor.ProcessorABC):
         nmu = ak.sum(musel,axis=1)
         
         # ## Electron cuts
-        # # electron twiki: https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2
+        ## # electron twiki: https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2
         #event_e = events.Electron[ak.argsort(events.Electron.pt, axis=1,ascending=False)]
         event_e = events.Electron
         event_e["lep_flav"] = 11*event_e.charge
-        elesel = ((event_e.pt > 20) & (abs(event_e.eta) < 2.5) & (event_e.mvaFall17V2Iso_WP90==1) & (event_e.pfRelIso03_all<0.25)) # but 30GeV and WP80 for 1L
+        elesel = ((event_e.pt > 20) & (abs(event_e.eta) < 2.5) & (event_e.mvaFall17V2Iso_WP90==1) & (event_e.pfRelIso03_all<0.25))
+        # but 30GeV and WP80 for 1L
+        
         event_e = event_e[elesel]
         event_e = event_e[ak.argsort(event_e.pt, axis=1,ascending=False)]
         event_e = ak.pad_none(event_e,2,axis=1)
@@ -607,8 +613,6 @@ class NanoProcessor(processor.ProcessorABC):
         
         # for this channel (Zll / 2L)
         selection.add('lepsel',ak.to_numpy((nele==2)|(nmu==2)))
-        
-        
         
         # ToDo: further split this part / selection into low V_pt and high V_pt
         
@@ -640,28 +644,176 @@ class NanoProcessor(processor.ProcessorABC):
             ll_cand  = ll_cand[ak.argsort(ll_cand.pt, axis=1,ascending=False)]
             
             
-        # ===================================================================            
-        # Everything below: ToDo or WIP
-        # so far only copied from H+c, plus small additions or modifications
+        
+        corr_jet =  jec(events,events.Jet,dataset,self._year,self._corr)
+        #event_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL, axis=1,ascending=False)]
+        # ###########
+        #corr_jet =  jec(events,events.Jet,dataset,self._year,self._corr)
+        # ToDo check VHcc
+        '''
+        seljet = (corr_jet.pt > 20) & (abs(corr_jet.eta) <= 2.4) \ 
+                    & ((corr_jet.puId > 0)|(corr_jet.pt>50)) \ 
+                    & (corr_jet.jetId>5) \ 
+                    & ak.all(corr_jet.metric_table(leppair.lep1)>0.4,axis=2) \
+                    & ak.all(corr_jet.metric_table(leppair.lep2)>0.4,axis=2)
+        '''
+        #jet_sel = (event_jet.pt > 20) & (abs(event_jet.eta) <= 2.4) \ 
+        #            & ((event_jet.puId > 0) | (event_jet.pt>50)) \ 
+        #            & (event_jet.jetId>5) 
+        jet_sel = (corr_jet.pt > 20) & (abs(corr_jet.eta) <= 2.4) & ((corr_jet.puId > 0) \
+                     | (corr_jet.pt>50)) & (corr_jet.jetId>5) 
+        event_jet = corr_jet[jet_sel]
+        njet = ak.sum(jet_sel,axis=1)
+        event_jet = ak.pad_none(event_jet,2,axis=1) # at least length 2 as target for the arrays
+        selection.add('jetsel',ak.to_numpy(njet>=2))
+        
+        
+        # recalculate CvL & CvB here
+        
+        def deepflavcvsltag(jet):
+            btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
+            return ak.where((jet.btagDeepFlavB >= 0.) & (jet.btagDeepFlavB < 1.) & (jet.btagDeepFlavC >= 0.) & (btagDeepFlavL >= 0.),
+                            jet.btagDeepFlavC/(1.-jet.btagDeepFlavB),
+                            (-1.) * ak.ones_like(jet.btagDeepFlavB))
+        
+        def deepflavcvsbtag(jet):
+            btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
+            return ak.where((jet.btagDeepFlavB > 0.) & (jet.btagDeepFlavC > 0.) & (btagDeepFlavL >= 0.),
+                            jet.btagDeepFlavC/(jet.btagDeepFlavC+jet.btagDeepFlavB),
+                            (-1.) * ak.ones_like(jet.btagDeepFlavB))
+        
+        
+        # selection.add('jetsel',ak.to_numpy(ak.sum(seljet,axis=-1)==1))
+        # if CvL is already a branch in the file
+        #eventflav_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL,axis=1,ascending=False)]
+        # for older Nano / EOY / used for VHcc
+        eventflav_jet = event_jet[ak.argsort(deepflavcvsltag(event_jet),axis=1,ascending=False)]
+        #eventcsv_jet = corr_jet[ak.argsort(corr_jet.btagDeepCvL,axis=1,ascending=False)]
+        
+        
+        leading_cvsl_jet = eventflav_jet[:,0]
+        subleading_cvsl_jet = eventflav_jet[:,1]
+        
+        #remaining_jets = eventflav_jet[:,2:]
+        
+        
+        
+        # good_jets = ak.with_name(event_jet,"PtEtaPhiMCandidate")
+        '''
+        pair_2j = ak.combinations(
+                event_jet,
+                n=2,
+                replacement=False,
+                fields = ['jet1','jet2']
+            )
+        '''
+        # wondering whether one needs multiple candidates, or if leading + subleading is correct / enough
+        '''
+        jj_cand = ak.zip({
+                    # "p4": pair_2j.jet1+pair_2j.jet2,
+                    "jet1" : pair_2j.jet1,
+                    "jet2" : pair_2j.jet2,
+                    "pt": (pair_2j.jet1+pair_2j.jet2).pt,
+                    "eta": (pair_2j.jet1+pair_2j.jet2).eta,
+                    "phi": (pair_2j.jet1+pair_2j.jet2).phi,
+                    "mass": (pair_2j.jet1+pair_2j.jet2).mass,
+                },with_name="PtEtaPhiMLorentzVector",)
+        '''
+        jj_cand = ak.zip({
+                    # "p4": pair_2j.jet1+pair_2j.jet2,
+                    "jet1" : leading_cvsl_jet,
+                    "jet2" : subleading_cvsl_jet,
+                    "pt": (leading_cvsl_jet+subleading_cvsl_jet).pt,
+                    "eta": (leading_cvsl_jet+subleading_cvsl_jet).eta,
+                    "phi": (leading_cvsl_jet+subleading_cvsl_jet).phi,
+                    "mass": (leading_cvsl_jet+subleading_cvsl_jet).mass,
+                },with_name="PtEtaPhiMLorentzVector",)
+        
+        # jj_cand = jj_cand[ak.argsort(jj_cand.pt, axis=1,ascending=False)]
+        
+        '''
+        if (ak.count(jj_cand.mass)>0):
+            jj_cand = jj_cand[ak.argsort(abs(jj_cand.mass-91.18), axis=1)]
+        
+        higgs_cands, (ll_cands,jj_cands) = ll_cand.metric_table(jj_cand,axis=1,
+                                                               metric=lambda jj_cand, ll_cand: (jj_cand+ll_cand),
+                                                               return_combinations=True)
+        # print(ak.type(ll_cands.ll_cand))
+        '''
+        
+        
+        # https://twiki.cern.ch/twiki/bin/viewauth/CMS/PileupJetID
+        # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
+        fsr_jets_sel = ( (corr_jet.pt > 20.) & (abs(corr_jet.eta) < 3.) \
+                    #& min(corr_jet.delta_r(leading_cvsl_jet), corr_jet.delta_r(subleading_cvsl_jet)) < 0.8 \
+                    & corr_jet.puId > 6 ) \
+                    & (deepflavcvsltag(corr_jet) < deepflavcvsltag(subleading_cvsl_jet)) \
+                    & (ak.any(corr_jet.metric_table(leading_cvsl_jet)<0.8,axis=2) \
+                    | ak.any(corr_jet.metric_table(subleading_cvsl_jet)<0.8,axis=2) )
+                    #| ( (corr_jet.pt > 50.)  & (corr_jet.lepFilter > 0) & (corr_jet.jetId > 4) ) ) \
+        
+        # WIP
+        fsr_jets = corr_jet[fsr_jets_sel]
+        #fsr_not_hCand_jet_sel = (fsr_jets != jj_cand.jet1) & (fsr_jets != jj_cand.jet2)
+        #fsr_jets = fsr_jets[fsr_not_hCand_jet_sel]
+        
+        '''
+        higgs_cand = ak.zip(
+            {
+                "ll_cands"  :ll_cands,
+                "jj_cands"  :jj_cands,
+                "pt": higgs_cands.pt,
+                "eta": higgs_cands.eta,
+                "phi": higgs_cands.phi,
+                "mass": higgs_cands.mass
+            },with_name="PtEtaPhiMLorentzVector",
+        )
+        higgs_cand = ak.pad_none(higgs_cand,1,axis=0)
+        '''
+        
+        add_fsr_to_jet1 = fsr_jets.metric_table(leading_cvsl_jet) < fsr_jets.metric_table(subleading_cvsl_jet)
+        #add_fsr_to_jet1 = fsr_jets.delta_r(leading_cvsl_jet) < fsr_jets.delta_r(subleading_cvsl_jet)
+        print(add_fsr_to_jet1)
+        #fsr1 = fsr_jets[add_fsr_to_jet1]
+        #fsr_jets.nearest(eventflav_jet)
+        #eventflav_jet.nearest(fsr_jets)
+        #leading_cvsl_jet += 
+        
+        higgs_cand = ak.zip({
+                    # "p4": pair_2j.jet1+pair_2j.jet2,
+                    "jet1" : leading_cvsl_jet,
+                    "jet2" : subleading_cvsl_jet,
+                    "pt": (leading_cvsl_jet+subleading_cvsl_jet).pt,
+                    "eta": (leading_cvsl_jet+subleading_cvsl_jet).eta,
+                    "phi": (leading_cvsl_jet+subleading_cvsl_jet).phi,
+                    "mass": (leading_cvsl_jet+subleading_cvsl_jet).mass,
+                },with_name="PtEtaPhiMLorentzVector",)
             
+        
+        '''
         met = ak.zip({
                     "pt":  events.MET.pt,
                     "phi": events.MET.phi,
                     "energy": events.MET.sumEt,
                     }, with_name="PtEtaPhiMLorentzVector"
                 )
+        '''
         
-        
-        req_global = ak.any(
-                        (leppair.lep1.pt>25) & (ll_cand.mass>12) & (ll_cand.pt>30) \
-                        & (leppair.lep1.charge+leppair.lep2.charge==0) & (events.MET.pt>20) \
-                        & (make_p4(leppair.lep1).delta_r(make_p4(leppair.lep2))>0.4),
+        # the global selection does not yet split high and low (2LH and 2LL are both included here)
+        req_global = ak.any((leppair.lep1.pt>20) & (leppair.lep2.pt>20) \
+                        & (ll_cand.mass>75) & (ll_cand.mass<150) \
+                        & (ll_cand.pt>50) \
+                        & (leppair.lep1.charge+leppair.lep2.charge==0),  # opposite charge
+                        #& (events.MET.pt>20) \
+                        #& (make_p4(leppair.lep1).delta_r(make_p4(leppair.lep2))>0.4),
                         axis=-1
             )
         
-        req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45),axis=-1) 
-        
-        req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
+        #req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45),axis=-1) 
+        #req_sr = ak.any(
+        #
+        #    )
+        #req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
         # print(req_llmass.tolist(),abs(ll_cand.mass-91.18).tolist())
         # print(dataset,abs(ll_cand.mass-91.18).tolist())  
         
@@ -671,8 +823,9 @@ class NanoProcessor(processor.ProcessorABC):
         selection.add('global_selection',ak.to_numpy(req_global))
         
         # AS: not sure, but shouldn't it be nele==2 here? Also for H+c
-        # also: is this pt>13 not redundant, given that all e and mu passed the previous cut of pt>13 in H+c, or 20 for VHcc?
-        mask2e =  req_sr&req_global & (nele==1)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
+        # also: isn't this pt>13 redundant, given that all e and mu passed the previous cut of pt>13 in H+c, or 20 for VHcc?
+        #mask2e =  req_sr&req_global & (nele==1)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
+        mask2e =  req_sr&req_global & (nele==2)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
         mask2mu =  req_sr&req_global & (nmu==2)& (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)&req_llmass
         
         #mask2lep = [ak.any(tup) for tup in zip(maskemu, mask2mu, mask2e)]
@@ -686,51 +839,13 @@ class NanoProcessor(processor.ProcessorABC):
         selection.add('ee',ak.to_numpy(nele==2))
         selection.add('mumu',ak.to_numpy(nmu==2))
         #selection.add('emu',ak.to_numpy((nele==1)&(nmu==1)))
-             
-        # ###########
-        corr_jet =  jec(events,events.Jet,dataset,self._year,self._corr)
-        seljet = (corr_jet.pt > 20) & (abs(corr_jet.eta) <= 2.4)&((corr_jet.puId > 0)|(corr_jet.pt>50)) &(corr_jet.jetId>5)&ak.all(corr_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(corr_jet.metric_table(leppair.lep2)>0.4,axis=2) 
         
         
         
-        # recalculate CvL & CvB here
-        
-        def deepflavcvsltag(jet):
-            #if not hasattr(jet, 'btagDeepFlavC'):           # only Nano V5 onwards
-            #    return -99. 
-            btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
-            #if (jet.btagDeepFlavB >= 0.) & (jet.btagDeepFlavB < 1.) & (jet.btagDeepFlavC >= 0.) & (btagDeepFlavL >= 0.):
-            #    return jet.btagDeepFlavC/(1.-jet.btagDeepFlavB)
-            #else:
-            #    return -1
-            
-            return ak.where((jet.btagDeepFlavB >= 0.) & (jet.btagDeepFlavB < 1.) & (jet.btagDeepFlavC >= 0.) & (btagDeepFlavL >= 0.),
-                            jet.btagDeepFlavC/(1.-jet.btagDeepFlavB),
-                            (-1.) * ak.ones_like(jet.btagDeepFlavB))
-        '''
-        def deepflavcvsbtag(self, jet):
-            if not hasattr(jet, 'btagDeepFlavC'):           # only Nano V5 onwards
-                return -99.
-            btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
-            if jet.btagDeepFlavB > 0. and jet.btagDeepFlavC > 0. and btagDeepFlavL >= 0.:
-                return jet.btagDeepFlavC/(jet.btagDeepFlavC+jet.btagDeepFlavB)
-            else:
-                return -1
-        '''
-        
-        def deepflavcvsbtag(jet):
-            btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
-            return ak.where((jet.btagDeepFlavB > 0.) & (jet.btagDeepFlavC > 0.) & (btagDeepFlavL >= 0.),
-                            jet.btagDeepFlavC/(jet.btagDeepFlavC+jet.btagDeepFlavB),
-                            (-1.) * ak.ones_like(jet.btagDeepFlavB))
         
         
-        # selection.add('jetsel',ak.to_numpy(ak.sum(seljet,axis=-1)==1))
-        # if CvL is already a branch in the file
-        #eventflav_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL,axis=1,ascending=False)]
-        # for older Nano / EOY / used for VHcc
-        eventflav_jet = corr_jet[ak.argsort(deepflavcvsltag(corr_jet),axis=1,ascending=False)]
-        #eventcsv_jet = corr_jet[ak.argsort(corr_jet.btagDeepCvL,axis=1,ascending=False)]
+        
+        
         req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)>=1),axis=-1) 
         req_sr1 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ll_cand.mass<120),axis=-1) ## due to ttcr1
         req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
@@ -742,9 +857,10 @@ class NanoProcessor(processor.ProcessorABC):
         # req_WW_cr = ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass),axis=-1) 
         
         
-        
-        #Zll_vpt_low  = 
-        #Zll_vpt_high = 
+        # global already contains Vpt>50 as the lower bound
+        req_sr_Zll = ak.any((ll_cand.mass<105) & (Higgs_cand.mass<250) & (jj_cand.jet1.))
+        #req_sr_Zll_vpt_low  = req_global & ak.any(ll_cand.pt<150)
+        #req_sr_Zll_vpt_high = req_global & ak.any(ll_cand.pt>150)
         
         
         selection.add('llmass',ak.to_numpy(req_llmass))
