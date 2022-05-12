@@ -37,98 +37,7 @@ class NanoProcessor(processor.ProcessorABC):
         self._year=year
         
         # paths from table 1 and 2 of the AN_2020_235
-    
-        '''
-        # with HLT_, as it was done in VHcc analysis code
-        # l l
-        self._mumuhlt = {
-            '2016': [
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL',
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ',
-                'HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL',
-                'HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ'
-            ],
-            '2017': [
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL',
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ',
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8',#allowMissingBranch=1
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8'#allowMissingBranch=1
-            ],
-            '2018': [
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL',
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ',
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8',#allowMissingBranch=1
-                'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8'#allowMissingBranch=1
-            ],
-        }   
-    
-        self._eehlt = {
-            '2016': [
-                'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ'
-            ],
-            '2017': [
-                'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL',
-                'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ'
-            ],
-            '2018': [
-                'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL'
-            ],
-        }  
         
-        # l nu
-        self._munuhlt = {
-            '2016': [
-                'HLT_IsoMu24',
-                'HLT_IsoTkMu24'
-            ],
-            '2017': [
-                'HLT_IsoMu24',
-                'HLT_IsoMu27'
-            ],
-            '2018': [
-                'HLT_IsoMu24',
-                'HLT_IsoMu27'
-            ],
-        }   
-    
-        self._enuhlt = {
-            '2016': [
-                'HLT_Ele27_eta2p1_WPTight_Gsf'
-            ],
-            '2017': [
-                'HLT_Ele32_WPTight_Gsf_L1DoubleEG',
-                'HLT_Ele32_WPTight_Gsf'
-            ],
-            '2018': [
-                'HLT_Ele32_WPTight_Gsf_L1DoubleEG',
-                'HLT_Ele32_WPTight_Gsf'#allowMissingBranch=1
-            ],
-        }  
-        
-        # nu nu
-        self._nunuhlt = {
-            '2016': [
-                'HLT_PFMET110_PFMHT110_IDTight',
-                #'HLT_PFMET110_PFMHT120_IDTight', # found in hltbranches_2016.txt but not in AN
-                'HLT_PFMET170_NoiseCleaned',#allowMissingBranch=1
-                'HLT_PFMET170_BeamHaloCleaned',#allowMissingBranch=1
-                'HLT_PFMET170_HBHECleaned'
-            ],
-            '2017': [
-                'HLT_PFMET110_PFMHT110_IDTight',
-                'HLT_PFMET120_PFMHT120_IDTight',
-                'HLT_PFMET120_PFMHT120_IDTight_PFHT60',#allowMissingBranch=1
-                'HLT_PFMETTypeOne120_PFMHT120_IDTight'
-            ],
-            '2018': [
-                'HLT_PFMET110_PFMHT110_IDTight',
-                'HLT_PFMET120_PFMHT120_IDTight',
-                'HLT_PFMET120_PFMHT120_IDTight_PFHT60'#allowMissingBranch=1
-            ],
-        }   
-        '''
-        
-        #### without the HLT, see if schema understands it
         # l l
         # https://github.com/mastrolorenzo/AnalysisTools-1/blob/master/plugins/VHccAnalysis.cc#L3328
         self._mumu_hlt = {
@@ -308,27 +217,42 @@ class NanoProcessor(processor.ProcessorABC):
         }
         
         self._corr = init_corr(year)
+        
+        # Axes: Cat - what it is, a type of something, described with words
+        #       Bin - how much of something, numerical things
+        #
+        #   --> What follows here are "general" axes that are not a priori connected to objects,
+        #       but serve as building blocks to be used multiple times
+        #   --> Explains my old "DeltaR between what?" comment, namely because explicit usage only comes later
+        
+        
         # Define axes
         # Should read axes from NanoAOD config
         dataset_axis = hist.Cat("dataset", "Primary dataset")
-        # ToDo: look up what this means, what the numbers represent
-        #       also, is it necessary for VHcc? Is it for the c jet?
-        #       If yes, do we then need two axes like that?
+        
+        # ToDo: look up what this means, what the numbers represent.
+        #       Also, is it necessary for VHcc? Is it for the c jet?
+        #       Is it just the weird binning that confuses me and
+        #       maybe just the hadron or parton flavor in BTV nomenclature? 0, 4, 5
         flav_axis = hist.Bin("flav", r"Genflavour",[0,1,4,5,6])
-        # ToDo: needs to be updated
-        #MY: lepflav_axis = hist.Cat("lepflav",['ee','mumu','emu'])
+        
         lepflav_axis = hist.Cat("lepflav",['ee','mumu'])
-        # ToDo: probably useful to define high and low Vpt regions?
+        
+        '''
+        # Outdated idea: probably useful to define high and low Vpt regions?
         Zll_vpt_region_axis = hist.Cat("Zll_vpt_region",['low_vpt','high_vpt'])
-        # ToDo: 
-        # and comment: region is used later standalone, could probably define here already and then just refer to it
-        #region_axis = hist.Cat("region",['SR','SR1','SR2','top_CR1','top_CR2','DY_CR1','DY_CR2'])
-        reg = ['SR','SR_Zcc','top_antitop','Z_plus_c','Z_plus_b','Z_plus_l','W_plus_c','W_plus_l']
-        region_axis = hist.Cat("region",reg)
+        '''
+        # WIP: could add the split in vpt here instead because I assume these are all disjoint by construction
+        # WIP: region is used later again, could probably define here already and then just refer to it
+        #regions = ['SR','SR_Zcc','top_antitop','Z_plus_c','Z_plus_b','Z_plus_l','W_plus_c','W_plus_l']
+        # not yet sure how to handle the Zcc one
+        regions = ['SR_2LL','SR_2LH','Zcc','top_antitop','Z_plus_c','Z_plus_b','Z_plus_l','W_plus_c','W_plus_l']
+        region_axis = hist.Cat("region",regions)
+        
+        # these can stay how they are for the moment, just make sure sufficient information is stored later
         # Events
         njet_axis  = hist.Bin("nj",  r"N jets",      [0,1,2,3,4,5])
         nbjet_axis = hist.Bin("nbj", r"N b jets",    [0,1,2,3,4,5])            
-        #MY: ncjet_axis = hist.Bin("nbj", r"N b-jets",    [0,1,2,3,4,5]) 
         ncjet_axis = hist.Bin("ncj", r"N c jets",    [0,1,2,3,4,5])
         # kinematic variables       
         pt_axis   = hist.Bin("pt",   r" $p_{T}$ [GeV]", 50, 0, 300)
@@ -336,7 +260,7 @@ class NanoProcessor(processor.ProcessorABC):
         phi_axis  = hist.Bin("phi",  r" $\phi$", 30, -3, 3)
         mass_axis = hist.Bin("mass", r" $m$ [GeV]", 50, 0, 300)
         mt_axis =  hist.Bin("mt", r" $m_{T}$ [GeV]", 30, 0, 300)
-        dr_axis = hist.Bin("dr","$\Delta$R",20,0,5) # AS: ... between what?
+        dr_axis = hist.Bin("dr","$\Delta$R",20,0,5)
         # MET vars
         signi_axis = hist.Bin("significance", r"MET $\sigma$",20,0,10)
         covXX_axis = hist.Bin("covXX",r"MET covXX",20,0,10)
@@ -373,7 +297,9 @@ class NanoProcessor(processor.ProcessorABC):
                 'dphi_lep1':hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, phi_axis),
                 'dphi_lep2':hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, phi_axis),
                 'dphi_ll':hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, phi_axis),
-                # already put these here to refer to in future (with Zll_vpt_region_axis)
+                # already put these lines here to refer to in future (with Zll_vpt_region_axis)
+                #     although it is possible to just split SR inside the region axis in two
+                #     guess that was an initial misunderstanding by me --> just ignore
                 #'nj'  : hist.Hist("Counts", dataset_axis,  lepflav_axis, Zll_vpt_region_axis, region_axis, njet_axis),
                 #'nbj' : hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, nbjet_axis),
                 #'ncj' : hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, ncjet_axis),
@@ -405,28 +331,11 @@ class NanoProcessor(processor.ProcessorABC):
             else:
                 _hist_event_dict["%s_pt" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, pt_axis)
                 _hist_event_dict["%s_eta" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, eta_axis)
-                _hist_event_dict["%s_phi" %(i)]=hist.Hist("Counts", dataset_axis,  lepflav_axis, region_axis, phi_axis)
+                _hist_event_dict["%s_phi" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, phi_axis)
                 _hist_event_dict["%s_mass" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, mass_axis)
-            # for later, split by vpt low / high
-            #if 'jet' in i: 
-            #    _hist_event_dict["%s_pt" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, flav_axis, pt_axis)
-            #    _hist_event_dict["%s_eta" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, flav_axis, eta_axis)
-            #    _hist_event_dict["%s_phi" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, flav_axis, phi_axis)
-            #    _hist_event_dict["%s_mass" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, flav_axis, mass_axis)
-            #else:
-            #    _hist_event_dict["%s_pt" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, pt_axis)
-            #    _hist_event_dict["%s_eta" %(i)]=hist.Hist("Counts", dataset_axis,lepflav_axis, Zll_vpt_region_axis, region_axis, eta_axis)
-            #    _hist_event_dict["%s_phi" %(i)]=hist.Hist("Counts", dataset_axis,  lepflav_axis, Zll_vpt_region_axis, region_axis, phi_axis)
-            #    _hist_event_dict["%s_mass" %(i)]=hist.Hist("Counts", dataset_axis, lepflav_axis, Zll_vpt_region_axis, region_axis, mass_axis)
         
         for disc, axis in zip(disc_list,btag_axes):
-            # see above
-            #_hist_event_dict["jetflav_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, Zll_vpt_region_axis, region_axis,flav_axis, axis)
             _hist_event_dict["jetflav_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, region_axis,flav_axis, axis)
-            # This looks exactly the same as the line above, what does it do?
-            # probably not needed as we only sort by CvL currently
-            #_hist_event_dict["jetpn_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, Zll_vpt_region_axis, region_axis,flav_axis, axis)
-            #_hist_event_dict["jetpn_%s" %(disc)] = hist.Hist("Counts", dataset_axis,lepflav_axis, region_axis,flav_axis, axis)
             
         self.event_hists = list(_hist_event_dict.keys())
     
@@ -444,18 +353,26 @@ class NanoProcessor(processor.ProcessorABC):
         return self._accumulator
 
     def process(self, events):
-        # AS: if I understand correctly, this will be the content that can be stored later via histograms, right?
         output = self.accumulator.identity()
         dataset = events.metadata['dataset']
         isRealData = not hasattr(events, "genWeight")
         
+        # ToDo: understand how this thing behaves and what's the difference to cutting or masking
         selection = PackedSelection()
         
         
-        # AS: this is either counting events in data with weight 1, or weighted (MC)
+        # this is either counting events in data with weight 1, or weighted (MC)
         if isRealData:
             output['sumw'][dataset] += len(events)
         else:
+            # instead of taking the weights themselves, the sign is used:
+            # https://cms-talk.web.cern.ch/t/huge-event-weights-in-dy-powhegminnlo/8718/7
+            # although I initially had the same concerns as those raised in the thread,
+            # if not only the sign is different, but also the absolute values between events
+            # somehow it seems to average out, although I don't see why this is guaranteed
+            # must have to do with "LO without interference" where the values are indeed same
+            # technically it should not be necessary for EOY samples? And what if there are
+            # samples where these genWeights do vary in scale, not only sign?
             output['sumw'][dataset] += ak.sum(events.genWeight/abs(events.genWeight))
             
             
@@ -475,16 +392,14 @@ class NanoProcessor(processor.ProcessorABC):
             # weights.add('puweight', compiled['2017_pileupweight'](events.Pileup.nPU))
             
             
+        print(len(events))
         ##############
         if isRealData:
             output['cutflow'][dataset]['all']  += len(events)
         else:
             output['cutflow'][dataset]['all']  += ak.sum(events.genWeight/abs(events.genWeight))
             
-            
-        # copying from boostedhiggs can't be done here exactly, need to check the trigger also for sim.
-        # in boostedhiggs, these would be set to 1s
-            
+        
         #trigger_met = np.zeros(len(events), dtype='bool')
 
         trigger_ee = np.zeros(len(events), dtype='bool')
@@ -515,58 +430,8 @@ class NanoProcessor(processor.ProcessorABC):
         #        trigger_e = trigger_e | events.HLT[t]
         
         
-        # what follows is a not-used piece that would deal with different datasets
-        '''
-        if isRealData:                       
-            
-            #if "MuonEG" in dataset :
-            #    trigger_em = trigger_em
-            #    trigger_ele = np.zeros(len(events), dtype='bool')
-            #    trigger_mu = np.zeros(len(events), dtype='bool')
-            
-            if "MET" in dataset :
-                trigger_met = trigger_met
-                trigger_ele = np.zeros(len(events), dtype='bool')
-                trigger_mu = np.zeros(len(events), dtype='bool')
-            elif "EGamma" in dataset :
-                trigger_ele = trigger_ee & ~trigger_e
-                trigger_met = np.zeros(len(events), dtype='bool')
-                trigger_mu = np.zeros(len(events), dtype='bool')
-            elif "DoubleEG" in dataset:
-                trigger_ele = trigger_ee                                                            
-                trigger_mu = np.zeros(len(events), dtype='bool')
-                trigger_met = np.zeros(len(events), dtype='bool')
-            elif "SingleElectron" in dataset:
-                trigger_ele =  trigger_e & ~trigger_ee & ~trigger_met
-                trigger_mu = np.zeros(len(events), dtype='bool')
-                trigger_met= np.zeros(len(events), dtype='bool')
-            elif "DoubleMuon" in dataset:
-                trigger_mu = trigger_mm
-                trigger_ele= np.zeros(len(events), dtype='bool')
-                trigger_met= np.zeros(len(events), dtype='bool')
-            elif "SingleMuon" in dataset:
-                trigger_mu = trigger_m & ~trigger_mm & ~trigger_met
-                trigger_ele = np.zeros(len(events), dtype='bool')
-                trigger_met = np.zeros(len(events), dtype='bool')
-        else:
-            # honestly I did not get the logic here, also not for H+c
-            # when you set mu or ele with these OR statements, why does it
-            # not matter that one might select only one (instead of two)
-            trigger_mu = trigger_mm|trigger_m
-            trigger_ele = trigger_ee|trigger_e
-            # ToDo
-        '''
-        
-        # ignore single lepton datasets for now, just use DoubleMu and DoubleEle
-        
-        
-        #selection.add('trigger_ee', ak.to_numpy(trigger_ele))
-        #selection.add('trigger_mumu', ak.to_numpy(trigger_mu))
-        #del trigger_e,trigger_ee,trigger_m,trigger_mm
-        
         selection.add('trigger_ee', ak.to_numpy(trigger_ee))
         selection.add('trigger_mumu', ak.to_numpy(trigger_mm))
-        # no need to delete triggers as there is only one type in the first place now
         
         
         # apart from the comments above about EOY/UL, should be fine
@@ -614,7 +479,7 @@ class NanoProcessor(processor.ProcessorABC):
         # for this channel (Zll / 2L)
         selection.add('lepsel',ak.to_numpy((nele==2)|(nmu==2)))
         
-        # ToDo: further split this part / selection into low V_pt and high V_pt
+        
         
         #### build lepton pair(s) (I guess to reconstruct Z)
         good_leptons = ak.with_name(
@@ -629,6 +494,7 @@ class NanoProcessor(processor.ProcessorABC):
                 fields=["lep1", "lep2"],
             )
         # print(leppair.tolist())
+        #print(leppair.type)
         ll_cand = ak.zip({
                     "lep1" : leppair.lep1,
                     "lep2" : leppair.lep2,
@@ -687,14 +553,89 @@ class NanoProcessor(processor.ProcessorABC):
         # if CvL is already a branch in the file
         #eventflav_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL,axis=1,ascending=False)]
         # for older Nano / EOY / used for VHcc
-        eventflav_jet = event_jet[ak.argsort(deepflavcvsltag(event_jet),axis=1,ascending=False)]
+        #eventflav_jet = event_jet[ak.argsort(deepflavcvsltag(event_jet),axis=1,ascending=False)]
         #eventcsv_jet = corr_jet[ak.argsort(corr_jet.btagDeepCvL,axis=1,ascending=False)]
         
         
-        leading_cvsl_jet = eventflav_jet[:,0]
-        subleading_cvsl_jet = eventflav_jet[:,1]
+        #leading_cvsl_jet = eventflav_jet[:,0]
+        #subleading_cvsl_jet = eventflav_jet[:,1]
         
         #remaining_jets = eventflav_jet[:,2:]
+        
+        
+        
+        
+        
+        #jets = events.Jet
+        jets = corr_jet
+        #print(jets.type)
+        jets = jets.mask[ak.num(jets) > 2]
+        print(jets.type)
+        jets = jets[ak.argsort(deepflavcvsltag(jets), axis=1, ascending=False)]
+
+        print(jets.type)
+        conditions = ((abs(jets.eta) < 2.4) & (jets.pt > 20) & (jets.puId > 0)) \
+                     | ((jets.pt>50) & (jets.jetId>5))
+        #fsr_conditions = (abs(jets.eta) < 3) & (jets.pt > 20) \
+        #                & ak.all(jets.metric_table(ll_cand.lep1)>0.2) & ak.all(jets.metric_table(ll_cand.lep2)>0.2)
+
+        pick2 = jets[ak.pad_none(ak.local_index(jets, 1)[conditions], 2)[:, :2]]
+        rest = jets[ak.concatenate([ak.pad_none(ak.local_index(jets, 1)[conditions], 2)[:, 2:], 
+                                    ak.local_index(jets, 1)[(~conditions) & (abs(jets.eta) < 3) & (jets.pt > 20) \
+                                                           & ak.all(jets.metric_table(ll_cand.lep1)>0.2) \
+                                                           & ak.all(jets.metric_table(ll_cand.lep2)>0.2)
+                                                           ]
+                                   ], axis=1)]
+        
+        
+        #print(pick2.type)
+        #print(rest.type)
+        #print(others.type)
+        #_limit = 3
+        #_consider_only = 2
+
+        #leading, subleading, others = jets[:_limit, 0], jets[:_limit, 1], jets[:_limit, 2:2+_consider_only]
+
+        def find_fsr(leading, subleading, others, threshold=3):
+            mval1, (a1, b) = leading.metric_table(others, return_combinations=True)
+            mval2, (a2, b) = subleading.metric_table(others, return_combinations=True)
+
+            def res(mval, out):
+                order = ak.argsort(mval, axis=-1)
+                #print(order.type)
+                #print(out.type)
+                #print(mval.type)
+                return out[order], mval[order]
+
+            out1, metric1 =  res(mval1, b)
+            out2, metric2 =  res(mval2, b)
+
+            out1 = out1.mask[(metric1 <= threshold) & (metric1 < metric2)]
+            #out2 = out2.mask[(metric2 <= threshold) & (metric2 < metric1)]
+            out2 = out2.mask[(metric1 <= threshold) & (metric2 < metric1)]
+            return out1[:, 0, ...], out2[:, 0, ...]
+
+        #leading = pick2[:, 0]
+        #subleading = pick2[:, 1]
+        
+        missing = ~(ak.is_none(pick2[:, 0]) | ak.is_none(pick2[:, 1]))
+        pick2 = pick2.mask[missing]
+        rest = rest.mask[missing]
+
+        #print(pick2.type)
+        #print(rest.type)
+        
+        leading, subleading, others = pick2[:, 0], pick2[:, 1], rest
+        fsr_leading, fsr_subleading = find_fsr(leading, subleading, others, threshold=0.8)
+
+        #print(leading.pt)
+        #print((leading + fsr_leading.sum()).pt)
+        
+        #print(ak.sum((leading + fsr_leading.sum()).pt != leading.pt))
+        
+        #print(leading.type)
+        
+        
         
         
         
@@ -719,14 +660,15 @@ class NanoProcessor(processor.ProcessorABC):
                     "mass": (pair_2j.jet1+pair_2j.jet2).mass,
                 },with_name="PtEtaPhiMLorentzVector",)
         '''
+        
         jj_cand = ak.zip({
                     # "p4": pair_2j.jet1+pair_2j.jet2,
-                    "jet1" : leading_cvsl_jet,
-                    "jet2" : subleading_cvsl_jet,
-                    "pt": (leading_cvsl_jet+subleading_cvsl_jet).pt,
-                    "eta": (leading_cvsl_jet+subleading_cvsl_jet).eta,
-                    "phi": (leading_cvsl_jet+subleading_cvsl_jet).phi,
-                    "mass": (leading_cvsl_jet+subleading_cvsl_jet).mass,
+                    "jet1" : leading + fsr_leading.sum(),
+                    "jet2" : subleading + fsr_subleading.sum(),
+                    "pt": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).pt,
+                    "eta": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).eta,
+                    "phi": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).phi,
+                    "mass": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).mass,
                 },with_name="PtEtaPhiMLorentzVector",)
         
         # jj_cand = jj_cand[ak.argsort(jj_cand.pt, axis=1,ascending=False)]
@@ -741,19 +683,21 @@ class NanoProcessor(processor.ProcessorABC):
         # print(ak.type(ll_cands.ll_cand))
         '''
         
-        
+        '''
         # https://twiki.cern.ch/twiki/bin/viewauth/CMS/PileupJetID
         # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
         fsr_jets_sel = ( (corr_jet.pt > 20.) & (abs(corr_jet.eta) < 3.) \
-                    #& min(corr_jet.delta_r(leading_cvsl_jet), corr_jet.delta_r(subleading_cvsl_jet)) < 0.8 \
-                    & corr_jet.puId > 6 ) \
-                    & (deepflavcvsltag(corr_jet) < deepflavcvsltag(subleading_cvsl_jet)) \
-                    & (ak.any(corr_jet.metric_table(leading_cvsl_jet)<0.8,axis=2) \
-                    | ak.any(corr_jet.metric_table(subleading_cvsl_jet)<0.8,axis=2) )
-                    #| ( (corr_jet.pt > 50.)  & (corr_jet.lepFilter > 0) & (corr_jet.jetId > 4) ) ) \
-        
+                        & (corr_jet.metric_table(ll_cand.lep1)>0.2) & (corr_jet.metric_table(ll_cand.lep2)>0.2) \
+                        & ak.any(corr_jet.delta_r(leading_cvsl_jet), corr_jet.delta_r(subleading_cvsl_jet)) < 0.8 \
+                        & corr_jet.puId > 6 ) \
+                        & (deepflavcvsltag(corr_jet) < deepflavcvsltag(subleading_cvsl_jet)) #\
+                        #& ( (corr_jet.delta_r(leading_cvsl_jet)<0.8) \
+                        #| (corr_jet.delta_r(subleading_cvsl_jet)<0.8) )
+                        #| ( (corr_jet.pt > 50.)  & (corr_jet.lepFilter > 0) & (corr_jet.jetId > 4) ) ) \
+        '''
         # WIP
-        fsr_jets = corr_jet[fsr_jets_sel]
+        #print(ak.sum(ak.num(fsr_jets_sel)>0))
+        #fsr_jets = corr_jet[fsr_jets_sel]
         #fsr_not_hCand_jet_sel = (fsr_jets != jj_cand.jet1) & (fsr_jets != jj_cand.jet2)
         #fsr_jets = fsr_jets[fsr_not_hCand_jet_sel]
         
@@ -771,14 +715,22 @@ class NanoProcessor(processor.ProcessorABC):
         higgs_cand = ak.pad_none(higgs_cand,1,axis=0)
         '''
         
-        add_fsr_to_jet1 = fsr_jets.metric_table(leading_cvsl_jet) < fsr_jets.metric_table(subleading_cvsl_jet)
+        #add_fsr_to_jet1 = fsr_jets.metric_table(leading_cvsl_jet) < fsr_jets.metric_table(subleading_cvsl_jet)
         #add_fsr_to_jet1 = fsr_jets.delta_r(leading_cvsl_jet) < fsr_jets.delta_r(subleading_cvsl_jet)
-        print(add_fsr_to_jet1)
+        #print(ak.sum(ak.num(add_fsr_to_jet1)>0))
         #fsr1 = fsr_jets[add_fsr_to_jet1]
         #fsr_jets.nearest(eventflav_jet)
         #eventflav_jet.nearest(fsr_jets)
         #leading_cvsl_jet += 
         
+        
+        
+        
+        
+        
+        
+        
+        '''
         higgs_cand = ak.zip({
                     # "p4": pair_2j.jet1+pair_2j.jet2,
                     "jet1" : leading_cvsl_jet,
@@ -788,16 +740,17 @@ class NanoProcessor(processor.ProcessorABC):
                     "phi": (leading_cvsl_jet+subleading_cvsl_jet).phi,
                     "mass": (leading_cvsl_jet+subleading_cvsl_jet).mass,
                 },with_name="PtEtaPhiMLorentzVector",)
-            
-        
         '''
+        higgs_cand = jj_cand
+        
+        
         met = ak.zip({
                     "pt":  events.MET.pt,
                     "phi": events.MET.phi,
                     "energy": events.MET.sumEt,
                     }, with_name="PtEtaPhiMLorentzVector"
                 )
-        '''
+        
         
         # the global selection does not yet split high and low (2LH and 2LL are both included here)
         req_global = ak.any((leppair.lep1.pt>20) & (leppair.lep2.pt>20) \
@@ -813,7 +766,7 @@ class NanoProcessor(processor.ProcessorABC):
         #req_sr = ak.any(
         #
         #    )
-        #req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
+        req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
         # print(req_llmass.tolist(),abs(ll_cand.mass-91.18).tolist())
         # print(dataset,abs(ll_cand.mass-91.18).tolist())  
         
@@ -825,8 +778,12 @@ class NanoProcessor(processor.ProcessorABC):
         # AS: not sure, but shouldn't it be nele==2 here? Also for H+c
         # also: isn't this pt>13 redundant, given that all e and mu passed the previous cut of pt>13 in H+c, or 20 for VHcc?
         #mask2e =  req_sr&req_global & (nele==1)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
-        mask2e =  req_sr&req_global & (nele==2)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
-        mask2mu =  req_sr&req_global & (nmu==2)& (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)&req_llmass
+        
+        #mask2e =  req_sr&req_global & (nele==2)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
+        #mask2mu =  req_sr&req_global & (nmu==2)& (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)&req_llmass
+        
+        mask2e =  req_global & (nele==2) & (event_e[:,0].pt>25) & (event_e[:,1].pt>13)
+        mask2mu =  req_global & (nmu==2) & (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)
         
         #mask2lep = [ak.any(tup) for tup in zip(maskemu, mask2mu, mask2e)]
         mask2lep = [ak.any(tup) for tup in zip(mask2mu, mask2e)]
@@ -843,12 +800,11 @@ class NanoProcessor(processor.ProcessorABC):
         
         
         
-        
-        
+        seljet = jet_sel
         
         req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)>=1),axis=-1) 
-        req_sr1 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ll_cand.mass<120),axis=-1) ## due to ttcr1
-        req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
+        #req_sr1 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ll_cand.mass<120),axis=-1) ## due to ttcr1
+        #req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
         
         req_dy_cr1 =ak.any((mT(leppair.lep2,met)>30)& (abs(ll_cand.mass-91.18)<15) & (events.MET.sumEt>45)& (mT(ll_cand,met)<60) ,axis=-1) 
         req_dy_cr2 =ak.any((mT(leppair.lep2,met)>30)& (events.MET.sumEt>45)& (mT(ll_cand,met)<60)&(ak.sum(seljet,axis=-1)==0) ,axis=-1) 
@@ -856,22 +812,29 @@ class NanoProcessor(processor.ProcessorABC):
         req_top_cr2 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ak.count(seljet,axis=1)>=2),axis=-1) 
         # req_WW_cr = ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass),axis=-1) 
         
+        #print(higgs_cand.type)
+        #print(ll_cand.type)
         
         # global already contains Vpt>50 as the lower bound
-        req_sr_Zll = ak.any((ll_cand.mass<105) & (Higgs_cand.mass<250) & (jj_cand.jet1.))
-        #req_sr_Zll_vpt_low  = req_global & ak.any(ll_cand.pt<150)
-        #req_sr_Zll_vpt_high = req_global & ak.any(ll_cand.pt>150)
+        req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.mass<250) & (higgs_cand.delta_phi(ll_cand)>2.5),
+                            axis=-1)
+        req_sr_Zll_vpt_low  = req_global & req_sr_Zll & ak.any(ll_cand.pt<150, axis=-1)
+        req_sr_Zll_vpt_high = req_global & req_sr_Zll & ak.any(ll_cand.pt>150, axis=-1)
         
         
-        selection.add('llmass',ak.to_numpy(req_llmass))
-        selection.add('SR',ak.to_numpy(req_sr))
-        selection.add('SR1',ak.to_numpy(req_sr1))
-        selection.add('SR2',ak.to_numpy(req_sr2))
+        #selection.add('llmass',ak.to_numpy(req_llmass))
+        selection.add('SR',ak.to_numpy(req_sr_Zll))
+        #selection.add('SR1',ak.to_numpy(req_sr1))
+        #selection.add('SR2',ak.to_numpy(req_sr2))
+        selection.add('SR_2LL',ak.to_numpy(req_sr_Zll_vpt_low))
+        selection.add('SR_2LH',ak.to_numpy(req_sr_Zll_vpt_high))
         selection.add('top_CR1',ak.to_numpy(req_top_cr1))
         selection.add('top_CR2',ak.to_numpy(req_top_cr2))
         selection.add('DY_CR1',ak.to_numpy(req_dy_cr1))
         selection.add('DY_CR2',ak.to_numpy(req_dy_cr2))
         # selection.add('WW_CR',ak.to_numpy(req_WW_cr))
+        
+        eventflav_jet = jets
         sel_jet =  eventflav_jet[(eventflav_jet.pt > 20) & (abs(eventflav_jet.eta) <= 2.4)&((eventflav_jet.puId > 0)|(eventflav_jet.pt>50)) &(eventflav_jet.jetId>5)&ak.all(eventflav_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventflav_jet.metric_table(leppair.lep2)>0.4,axis=2)]
 
 
@@ -910,16 +873,17 @@ class NanoProcessor(processor.ProcessorABC):
 
         # see comment above
         lepflav = ['ee','mumu']
-        reg = ['SR','SR1','SR2','DY_CR1','DY_CR2','top_CR1','top_CR2']
+        reg = ['SR','SR_2LL','SR_2LH','DY_CR1','DY_CR2','top_CR1','top_CR2']
             
         #### write into histograms (i.e. write output)
         for histname, h in output.items():
             for ch in lepflav:
                 for r in reg:
-                    if ch == 'emu':
-                        cut = selection.all('lepsel', 'global_selection', 'metfilter', 'lumi', r, ch, 'trigger_%s'%(ch))
-                    elif ch == 'ee' or ch == 'mumu' :
-                        cut = selection.all('lepsel','global_selection','metfilter','lumi',r,ch, 'trigger_%s'%(ch),'llmass')
+                    #if ch == 'emu':
+                    #    cut = selection.all('lepsel', 'global_selection', 'metfilter', 'lumi', r, ch, 'trigger_%s'%(ch))
+                    #elif ch == 'ee' or ch == 'mumu' :
+                    #cut = selection.all('lepsel','global_selection','metfilter','lumi',r,ch, 'trigger_%s'%(ch),'llmass')
+                    cut = selection.all('lepsel','global_selection','metfilter','lumi',r,ch, 'trigger_%s'%(ch))
                     llcut = ll_cand[cut]
                     llcut = llcut[:,0]
 
