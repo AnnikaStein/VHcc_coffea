@@ -5,7 +5,7 @@ import gzip
 import pickle, os, sys, mplhep as hep, numpy as np
 from select import select
 
-from matplotlib.pyplot import jet
+#from matplotlib.pyplot import jet
 
 #import coffea
 from coffea import hist, processor
@@ -210,6 +210,7 @@ class NanoProcessor(processor.ProcessorABC):
         }
         
         
+        # Most likely there are others for EOY, given that these ones contain UL or Legacy in the name...
         self._lumiMasks = {
             '2016': LumiMask('data/Lumimask/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt'),
             '2017': LumiMask('data/Lumimask/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt'),
@@ -270,7 +271,7 @@ class NanoProcessor(processor.ProcessorABC):
         
         # axis.StrCategory([], name='region', growth=True),
         #disc_list = [ 'btagDeepCvL', 'btagDeepCvB','btagDeepFlavCvB','btagDeepFlavCvL']#,'particleNetAK4_CvL','particleNetAK4_CvB']
-        # ToDo: as far as I can tell, we only need DeepFlav currently
+        # As far as I can tell, we only need DeepFlav currently
         #disc_list = ['btagDeepFlavCvB','btagDeepFlavCvL']
         # BUT: CvB and CvL not available, but can be recalculated
         disc_list = ['btagDeepFlavC','btagDeepFlavB']
@@ -339,6 +340,8 @@ class NanoProcessor(processor.ProcessorABC):
             
         self.event_hists = list(_hist_event_dict.keys())
     
+        # Seems like here we define what will be stored and how it will be stored in the final output:
+        # - explains why sometimes, there is only a numerical value, and in other cases a histogram instead
         self._accumulator = processor.dict_accumulator(
             {**_hist_event_dict,   
              'cutflow': processor.defaultdict_accumulator(
@@ -355,15 +358,21 @@ class NanoProcessor(processor.ProcessorABC):
     def process(self, events):
         output = self.accumulator.identity()
         dataset = events.metadata['dataset']
+        # Q: could there be MC that does not have this attribute? Or is it always the case?
         isRealData = not hasattr(events, "genWeight")
         
-        # ToDo: understand how this thing behaves and what's the difference to cutting or masking
+        # length of events is used so many times later on, probably useful to just save it here and then refer to that
+        nEvents = len(events)
+        print('Number of events: ', nEvents)
+        
+        # As far as I understand, this looks like a neat way to give selections a name,
+        # while internally, there are boolean arrays for all events
         selection = PackedSelection()
         
         
         # this is either counting events in data with weight 1, or weighted (MC)
         if isRealData:
-            output['sumw'][dataset] += len(events)
+            output['sumw'][dataset] += nEvents
         else:
             # instead of taking the weights themselves, the sign is used:
             # https://cms-talk.web.cern.ch/t/huge-event-weights-in-dy-powhegminnlo/8718/7
@@ -376,7 +385,7 @@ class NanoProcessor(processor.ProcessorABC):
             output['sumw'][dataset] += ak.sum(events.genWeight/abs(events.genWeight))
             
             
-        req_lumi=np.ones(len(events), dtype='bool')
+        req_lumi=np.ones(nEvents, dtype='bool')
         if isRealData: 
             req_lumi=self._lumiMasks[self._year](events.run, events.luminosityBlock)
         selection.add('lumi',ak.to_numpy(req_lumi))
@@ -384,29 +393,28 @@ class NanoProcessor(processor.ProcessorABC):
         
         
         # AS: sort of the same thing as above, but now per entry
-        weights = Weights(len(events), storeIndividual=True)
+        weights = Weights(nEvents, storeIndividual=True)
         if isRealData:
-            weights.add('genweight',np.ones(len(events)))
+            weights.add('genweight',np.ones(nEvents))
         else:
             weights.add('genweight',events.genWeight/abs(events.genWeight))
             # weights.add('puweight', compiled['2017_pileupweight'](events.Pileup.nPU))
             
             
-        print(len(events))
         ##############
         if isRealData:
-            output['cutflow'][dataset]['all']  += len(events)
+            output['cutflow'][dataset]['all']  += nEvents
         else:
             output['cutflow'][dataset]['all']  += ak.sum(events.genWeight/abs(events.genWeight))
             
         
-        #trigger_met = np.zeros(len(events), dtype='bool')
+        #trigger_met = np.zeros(nEvents, dtype='bool')
 
-        trigger_ee = np.zeros(len(events), dtype='bool')
-        trigger_mm = np.zeros(len(events), dtype='bool')
+        trigger_ee = np.zeros(nEvents, dtype='bool')
+        trigger_mm = np.zeros(nEvents, dtype='bool')
 
-        #trigger_e = np.zeros(len(events), dtype='bool')
-        #trigger_m = np.zeros(len(events), dtype='bool')
+        #trigger_e = np.zeros(nEvents, dtype='bool')
+        #trigger_m = np.zeros(nEvents, dtype='bool')
         
         #for t in self._nunu_hlt[self._year]:
         #    # so that already seems to be the check for whether the path exists in the file or not
@@ -435,7 +443,7 @@ class NanoProcessor(processor.ProcessorABC):
         
         
         # apart from the comments above about EOY/UL, should be fine
-        metfilter = np.ones(len(events), dtype='bool')
+        metfilter = np.ones(nEvents, dtype='bool')
         for flag in self._met_filters[self._year]['data' if isRealData else 'mc']:
             metfilter &= np.array(events.Flag[flag])
         selection.add('metfilter', metfilter)
@@ -445,19 +453,28 @@ class NanoProcessor(processor.ProcessorABC):
         
         
         
+        # =================================================================================
+        #
+        # #                       Reconstruct and preselect leptons
+        #
+        # ---------------------------------------------------------------------------------
+        
+        
         # Adopt from https://github.com/mastrolorenzo/AnalysisTools-1/blob/master/plugins/VHccAnalysis.cc#L3369-L3440
         # https://gitlab.cern.ch/aachen-3a/vhcc-nano/-/blob/master/VHccProducer.py#L345-389
-        ## Muon cuts
-        # muon twiki: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
+        
+        # ## Muon cuts
+        ## muon twiki: https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2
         #event_mu = events.Muon[ak.argsort(events.Muon.pt, axis=1, ascending=False)]
         event_mu = events.Muon
+        # I expect that there is a bunch of corrections that are not yet implemented here, following the discussions on Mon & Wed
         # looseId >= 1 or looseId seems to be the same...
         musel = ((event_mu.pt > 20) & (abs(event_mu.eta) < 2.4) & (event_mu.looseId >= 1) & (event_mu.pfRelIso04_all<0.25))
         # but 25GeV and 0.06 for 1L, xy 0.05 z 0.2, &(abs(event_mu.dxy)<0.06)&(abs(event_mu.dz)<0.2) and tightId for 1L
-        
-        event_mu["lep_flav"] = 13*event_mu.charge
         event_mu = event_mu[musel]
         event_mu = event_mu[ak.argsort(event_mu.pt, axis=1, ascending=False)]
+        # Q: is 13 used here because of some PDG code?
+        event_mu["lep_flav"] = 13*event_mu.charge
         event_mu= ak.pad_none(event_mu,2,axis=1)
         nmu = ak.sum(musel,axis=1)
         
@@ -465,12 +482,12 @@ class NanoProcessor(processor.ProcessorABC):
         ## # electron twiki: https://twiki.cern.ch/twiki/bin/viewauth/CMS/CutBasedElectronIdentificationRun2
         #event_e = events.Electron[ak.argsort(events.Electron.pt, axis=1,ascending=False)]
         event_e = events.Electron
-        event_e["lep_flav"] = 11*event_e.charge
         elesel = ((event_e.pt > 20) & (abs(event_e.eta) < 2.5) & (event_e.mvaFall17V2Iso_WP90==1) & (event_e.pfRelIso03_all<0.25))
         # but 30GeV and WP80 for 1L
-        
         event_e = event_e[elesel]
         event_e = event_e[ak.argsort(event_e.pt, axis=1,ascending=False)]
+        # Q: see above
+        event_e["lep_flav"] = 11*event_e.charge
         event_e = ak.pad_none(event_e,2,axis=1)
         nele = ak.sum(elesel,axis=1)
         # sorting after selecting should be faster (less computations on average, no?)
@@ -510,32 +527,25 @@ class NanoProcessor(processor.ProcessorABC):
             ll_cand  = ll_cand[ak.argsort(ll_cand.pt, axis=1,ascending=False)]
             
             
+            
+            
+        # =================================================================================
+        #
+        # #                       Reconstruct and preselect jets
+        #
+        # ---------------------------------------------------------------------------------
         
-        corr_jet =  jec(events,events.Jet,dataset,self._year,self._corr)
-        #event_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL, axis=1,ascending=False)]
-        # ###########
-        #corr_jet =  jec(events,events.Jet,dataset,self._year,self._corr)
-        # ToDo check VHcc
-        '''
-        seljet = (corr_jet.pt > 20) & (abs(corr_jet.eta) <= 2.4) \ 
-                    & ((corr_jet.puId > 0)|(corr_jet.pt>50)) \ 
-                    & (corr_jet.jetId>5) \ 
-                    & ak.all(corr_jet.metric_table(leppair.lep1)>0.4,axis=2) \
-                    & ak.all(corr_jet.metric_table(leppair.lep2)>0.4,axis=2)
-        '''
-        #jet_sel = (event_jet.pt > 20) & (abs(event_jet.eta) <= 2.4) \ 
-        #            & ((event_jet.puId > 0) | (event_jet.pt>50)) \ 
-        #            & (event_jet.jetId>5) 
-        jet_sel = (corr_jet.pt > 20) & (abs(corr_jet.eta) <= 2.4) & ((corr_jet.puId > 0) \
-                     | (corr_jet.pt>50)) & (corr_jet.jetId>5) 
-        event_jet = corr_jet[jet_sel]
-        njet = ak.sum(jet_sel,axis=1)
-        event_jet = ak.pad_none(event_jet,2,axis=1) # at least length 2 as target for the arrays
-        selection.add('jetsel',ak.to_numpy(njet>=2))
+        # Apply correction:
+        jets =  jec(events,events.Jet,dataset,self._year,self._corr)
         
         
-        # recalculate CvL & CvB here
+        # This was necessary for the FSR code
+        #jets = jets.mask[ak.num(jets) > 2]
         
+        
+        
+        # For EOY: recalculate CvL & CvB here, because the branch does not exist in older files
+        # adapted from PostProcessor
         def deepflavcvsltag(jet):
             btagDeepFlavL = 1.-(jet.btagDeepFlavC+jet.btagDeepFlavB)
             return ak.where((jet.btagDeepFlavB >= 0.) & (jet.btagDeepFlavB < 1.) & (jet.btagDeepFlavC >= 0.) & (btagDeepFlavL >= 0.),
@@ -548,52 +558,43 @@ class NanoProcessor(processor.ProcessorABC):
                             jet.btagDeepFlavC/(jet.btagDeepFlavC+jet.btagDeepFlavB),
                             (-1.) * ak.ones_like(jet.btagDeepFlavB))
         
+        # Alternative ways:
+        # - depending on the Nano version, there might already be bTagDeepFlavCvL available
+        # - one could instead use DeepCSV via bTagDeepCvL
+        # - not necessarily use CvL, other combination possible ( CvB | pt | BDT? )
         
-        # selection.add('jetsel',ak.to_numpy(ak.sum(seljet,axis=-1)==1))
-        # if CvL is already a branch in the file
-        #eventflav_jet = corr_jet[ak.argsort(corr_jet.btagDeepFlavCvL,axis=1,ascending=False)]
-        # for older Nano / EOY / used for VHcc
-        #eventflav_jet = event_jet[ak.argsort(deepflavcvsltag(event_jet),axis=1,ascending=False)]
-        #eventcsv_jet = corr_jet[ak.argsort(corr_jet.btagDeepCvL,axis=1,ascending=False)]
-        
-        
-        #leading_cvsl_jet = eventflav_jet[:,0]
-        #subleading_cvsl_jet = eventflav_jet[:,1]
-        
-        #remaining_jets = eventflav_jet[:,2:]
-        
-        
-        
-        
-        
-        #jets = events.Jet
-        jets = corr_jet
-        #print(jets.type)
-        jets = jets.mask[ak.num(jets) > 2]
-        print(jets.type)
         jets = jets[ak.argsort(deepflavcvsltag(jets), axis=1, ascending=False)]
 
-        print(jets.type)
-        conditions = ((abs(jets.eta) < 2.4) & (jets.pt > 20) & (jets.puId > 0)) \
+        
+        # Jets are considered only if the following identification conditions hold, as mentioned in AN
+        # - Here is some documentation related to puId and jetId:
+        #     https://twiki.cern.ch/twiki/bin/viewauth/CMS/PileupJetID
+        #     https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
+        jet_conditions = ((abs(jets.eta) < 2.4) & (jets.pt > 20) & (jets.puId > 0)) \
                      | ((jets.pt>50) & (jets.jetId>5))
-        #fsr_conditions = (abs(jets.eta) < 3) & (jets.pt > 20) \
-        #                & ak.all(jets.metric_table(ll_cand.lep1)>0.2) & ak.all(jets.metric_table(ll_cand.lep2)>0.2)
-
-        pick2 = jets[ak.pad_none(ak.local_index(jets, 1)[conditions], 2)[:, :2]]
-        rest = jets[ak.concatenate([ak.pad_none(ak.local_index(jets, 1)[conditions], 2)[:, 2:], 
-                                    ak.local_index(jets, 1)[(~conditions) & (abs(jets.eta) < 3) & (jets.pt > 20) \
-                                                           & ak.all(jets.metric_table(ll_cand.lep1)>0.2) \
-                                                           & ak.all(jets.metric_table(ll_cand.lep2)>0.2)
-                                                           ]
+        # Count how many jets exist that pass this selection
+        njet = ak.sum(jet_conditions,axis=1)
+        selection.add('jetsel',ak.to_numpy(njet>=2))
+        
+        # FSR jets are selected with slightly different criteria
+        fsr_conditions = (abs(jets.eta) < 3) & (jets.pt > 20) \
+                        & ak.all(jets.metric_table(ll_cand.lep1)>0.2) & ak.all(jets.metric_table(ll_cand.lep2)>0.2)
+        # Take the first two jets that pass the criteria and check the remaining ones,
+        # as well as potentially others, to get FSR jets:
+        pick2 = jets[ak.pad_none(ak.local_index(jets, 1)[jet_conditions], 2)[:, :2]]
+        others = jets[ak.concatenate([ak.pad_none(ak.local_index(jets, 1)[jet_conditions], 2)[:, 2:], 
+                                    ak.local_index(jets, 1)[(~jet_conditions) & (fsr_conditions)]
                                    ], axis=1)]
         
         
         #print(pick2.type)
         #print(rest.type)
         #print(others.type)
+        
+        # This first version of the FSR recovery is not able to find the remaining FSR candidates that do not fulfill the
+        # jet_conditions and therefore not considered further.
         #_limit = 3
         #_consider_only = 2
-
         #leading, subleading, others = jets[:_limit, 0], jets[:_limit, 1], jets[:_limit, 2:2+_consider_only]
 
         def find_fsr(leading, subleading, others, threshold=3):
@@ -620,130 +621,70 @@ class NanoProcessor(processor.ProcessorABC):
         
         missing = ~(ak.is_none(pick2[:, 0]) | ak.is_none(pick2[:, 1]))
         pick2 = pick2.mask[missing]
-        rest = rest.mask[missing]
+        others = others.mask[missing]
 
         #print(pick2.type)
         #print(rest.type)
         
-        leading, subleading, others = pick2[:, 0], pick2[:, 1], rest
+        leading, subleading = pick2[:, 0], pick2[:, 1]
         fsr_leading, fsr_subleading = find_fsr(leading, subleading, others, threshold=0.8)
 
         #print(leading.pt)
         #print((leading + fsr_leading.sum()).pt)
         
+        # To explicitly check that adding FSR does indeed have an effect
         #print(ak.sum((leading + fsr_leading.sum()).pt != leading.pt))
         
         #print(leading.type)
         
-        
-        
-        
-        
-        # good_jets = ak.with_name(event_jet,"PtEtaPhiMCandidate")
-        '''
-        pair_2j = ak.combinations(
-                event_jet,
-                n=2,
-                replacement=False,
-                fields = ['jet1','jet2']
-            )
-        '''
-        # wondering whether one needs multiple candidates, or if leading + subleading is correct / enough
-        '''
-        jj_cand = ak.zip({
-                    # "p4": pair_2j.jet1+pair_2j.jet2,
-                    "jet1" : pair_2j.jet1,
-                    "jet2" : pair_2j.jet2,
-                    "pt": (pair_2j.jet1+pair_2j.jet2).pt,
-                    "eta": (pair_2j.jet1+pair_2j.jet2).eta,
-                    "phi": (pair_2j.jet1+pair_2j.jet2).phi,
-                    "mass": (pair_2j.jet1+pair_2j.jet2).mass,
-                },with_name="PtEtaPhiMLorentzVector",)
-        '''
-        
-        jj_cand = ak.zip({
-                    # "p4": pair_2j.jet1+pair_2j.jet2,
-                    "jet1" : leading + fsr_leading.sum(),
-                    "jet2" : subleading + fsr_subleading.sum(),
-                    "pt": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).pt,
-                    "eta": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).eta,
-                    "phi": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).phi,
-                    "mass": (leading + fsr_leading.sum()+subleading + fsr_subleading.sum()).mass,
+        # Collect the (sub-)leading jets and their respective FSR jets in a new 4-vector
+        leading_with_fsr = ak.zip({
+                    "jet1" : leading,
+                    "jet2" : fsr_leading.sum(),
+                    "pt": (leading + fsr_leading.sum()).pt,
+                    "eta": (leading + fsr_leading.sum()).eta,
+                    "phi": (leading + fsr_leading.sum()).phi,
+                    "mass": (leading + fsr_leading.sum()).mass,
                 },with_name="PtEtaPhiMLorentzVector",)
         
-        # jj_cand = jj_cand[ak.argsort(jj_cand.pt, axis=1,ascending=False)]
+        subleading_with_fsr = ak.zip({
+                    "jet1" : subleading,
+                    "jet2" : fsr_subleading.sum(),
+                    "pt": (subleading + fsr_subleading.sum()).pt,
+                    "eta": (subleading + fsr_subleading.sum()).eta,
+                    "phi": (subleading + fsr_subleading.sum()).phi,
+                    "mass": (subleading + fsr_subleading.sum()).mass,
+                },with_name="PtEtaPhiMLorentzVector",)
         
-        '''
-        if (ak.count(jj_cand.mass)>0):
-            jj_cand = jj_cand[ak.argsort(abs(jj_cand.mass-91.18), axis=1)]
+
+        # =================================================================================
+        #
+        # #                       Build Higgs candidate w/ or w/o FSR
+        #
+        # ---------------------------------------------------------------------------------
         
-        higgs_cands, (ll_cands,jj_cands) = ll_cand.metric_table(jj_cand,axis=1,
-                                                               metric=lambda jj_cand, ll_cand: (jj_cand+ll_cand),
-                                                               return_combinations=True)
-        # print(ak.type(ll_cands.ll_cand))
-        '''
+        # Build 4-vector from leading + subleading jets, with or without FSR
+        higgs_cand_no_fsr = ak.zip({
+                    "jet1" : leading,
+                    "jet2" : subleading,
+                    "pt": (leading + subleading).pt,
+                    "eta": (leading + subleading).eta,
+                    "phi": (leading + subleading).phi,
+                    "mass": (leading + subleading).mass,
+                },with_name="PtEtaPhiMLorentzVector",)
         
-        '''
-        # https://twiki.cern.ch/twiki/bin/viewauth/CMS/PileupJetID
-        # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
-        fsr_jets_sel = ( (corr_jet.pt > 20.) & (abs(corr_jet.eta) < 3.) \
-                        & (corr_jet.metric_table(ll_cand.lep1)>0.2) & (corr_jet.metric_table(ll_cand.lep2)>0.2) \
-                        & ak.any(corr_jet.delta_r(leading_cvsl_jet), corr_jet.delta_r(subleading_cvsl_jet)) < 0.8 \
-                        & corr_jet.puId > 6 ) \
-                        & (deepflavcvsltag(corr_jet) < deepflavcvsltag(subleading_cvsl_jet)) #\
-                        #& ( (corr_jet.delta_r(leading_cvsl_jet)<0.8) \
-                        #| (corr_jet.delta_r(subleading_cvsl_jet)<0.8) )
-                        #| ( (corr_jet.pt > 50.)  & (corr_jet.lepFilter > 0) & (corr_jet.jetId > 4) ) ) \
-        '''
-        # WIP
-        #print(ak.sum(ak.num(fsr_jets_sel)>0))
-        #fsr_jets = corr_jet[fsr_jets_sel]
-        #fsr_not_hCand_jet_sel = (fsr_jets != jj_cand.jet1) & (fsr_jets != jj_cand.jet2)
-        #fsr_jets = fsr_jets[fsr_not_hCand_jet_sel]
-        
-        '''
-        higgs_cand = ak.zip(
-            {
-                "ll_cands"  :ll_cands,
-                "jj_cands"  :jj_cands,
-                "pt": higgs_cands.pt,
-                "eta": higgs_cands.eta,
-                "phi": higgs_cands.phi,
-                "mass": higgs_cands.mass
-            },with_name="PtEtaPhiMLorentzVector",
-        )
-        higgs_cand = ak.pad_none(higgs_cand,1,axis=0)
-        '''
-        
-        #add_fsr_to_jet1 = fsr_jets.metric_table(leading_cvsl_jet) < fsr_jets.metric_table(subleading_cvsl_jet)
-        #add_fsr_to_jet1 = fsr_jets.delta_r(leading_cvsl_jet) < fsr_jets.delta_r(subleading_cvsl_jet)
-        #print(ak.sum(ak.num(add_fsr_to_jet1)>0))
-        #fsr1 = fsr_jets[add_fsr_to_jet1]
-        #fsr_jets.nearest(eventflav_jet)
-        #eventflav_jet.nearest(fsr_jets)
-        #leading_cvsl_jet += 
-        
-        
-        
-        
-        
-        
-        
-        
-        '''
         higgs_cand = ak.zip({
-                    # "p4": pair_2j.jet1+pair_2j.jet2,
-                    "jet1" : leading_cvsl_jet,
-                    "jet2" : subleading_cvsl_jet,
-                    "pt": (leading_cvsl_jet+subleading_cvsl_jet).pt,
-                    "eta": (leading_cvsl_jet+subleading_cvsl_jet).eta,
-                    "phi": (leading_cvsl_jet+subleading_cvsl_jet).phi,
-                    "mass": (leading_cvsl_jet+subleading_cvsl_jet).mass,
+                    "jet1" : leading_with_fsr,
+                    "jet2" : subleading_with_fsr,
+                    "pt": (leading_with_fsr + subleading_with_fsr).pt,
+                    "eta": (leading_with_fsr + subleading_with_fsr).eta,
+                    "phi": (leading_with_fsr + subleading_with_fsr).phi,
+                    "mass": (leading_with_fsr + subleading_with_fsr).mass,
                 },with_name="PtEtaPhiMLorentzVector",)
-        '''
-        higgs_cand = jj_cand
         
         
+        
+        # Not sure if this is even needed in the Zll channel, but it probably won't hurt
         met = ak.zip({
                     "pt":  events.MET.pt,
                     "phi": events.MET.phi,
@@ -752,21 +693,41 @@ class NanoProcessor(processor.ProcessorABC):
                 )
         
         
-        # the global selection does not yet split high and low (2LH and 2LL are both included here)
+        
+        
+        
+        # =================================================================================
+        #
+        # #                       Actual event selection starts here
+        #
+        # ---------------------------------------------------------------------------------
+        
+        
+        # Common global requirements in the Zll channel
+        # - valid for 2LH and 2LL
+        # - valid for any region, no matter if SR or CR
+        
+        # Q: Not entirely sure about the p_T(H)<250 here, I might be confusing it with 300 GeV, just copied 250 from the AN & AT
+        # - If one requires this here, wouldn't the range between 250 and 300 GeV be missing in the combination?
+        # - (Assuming boosted is only considering p_T > 300) 
         req_global = ak.any((leppair.lep1.pt>20) & (leppair.lep2.pt>20) \
                         & (ll_cand.mass>75) & (ll_cand.mass<150) \
                         & (ll_cand.pt>50) \
+                        & (leading_with_fsr.pt>20) & (subleading_with_fsr.pt>20) \
+                        & (higgs_cand.mass<250) \
                         & (leppair.lep1.charge+leppair.lep2.charge==0),  # opposite charge
                         #& (events.MET.pt>20) \
                         #& (make_p4(leppair.lep1).delta_r(make_p4(leppair.lep2))>0.4),
                         axis=-1
             )
         
+        
+        # Some lines that I copied over, but will most likely not play any role
         #req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45),axis=-1) 
         #req_sr = ak.any(
         #
         #    )
-        req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
+        #req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
         # print(req_llmass.tolist(),abs(ll_cand.mass-91.18).tolist())
         # print(dataset,abs(ll_cand.mass-91.18).tolist())  
         
@@ -782,8 +743,8 @@ class NanoProcessor(processor.ProcessorABC):
         #mask2e =  req_sr&req_global & (nele==2)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass
         #mask2mu =  req_sr&req_global & (nmu==2)& (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)&req_llmass
         
-        mask2e =  req_global & (nele==2) & (event_e[:,0].pt>25) & (event_e[:,1].pt>13)
-        mask2mu =  req_global & (nmu==2) & (event_mu[:,0].pt>25) &(event_mu[:,1].pt>13)
+        mask2e = req_global & (nele==2)
+        mask2mu = req_global & (nmu==2)
         
         #mask2lep = [ak.any(tup) for tup in zip(maskemu, mask2mu, mask2e)]
         mask2lep = [ak.any(tup) for tup in zip(mask2mu, mask2e)]
@@ -795,28 +756,24 @@ class NanoProcessor(processor.ProcessorABC):
         
         selection.add('ee',ak.to_numpy(nele==2))
         selection.add('mumu',ak.to_numpy(nmu==2))
-        #selection.add('emu',ak.to_numpy((nele==1)&(nmu==1)))
         
         
-        
-        
-        seljet = jet_sel
-        
-        req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)>=1),axis=-1) 
+        #req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45)&(ak.sum(jet_conditions,axis=-1)>=1),axis=-1) 
         #req_sr1 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ll_cand.mass<120),axis=-1) ## due to ttcr1
-        #req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(seljet,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
+        #req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(jet_conditions,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
         
-        req_dy_cr1 =ak.any((mT(leppair.lep2,met)>30)& (abs(ll_cand.mass-91.18)<15) & (events.MET.sumEt>45)& (mT(ll_cand,met)<60) ,axis=-1) 
-        req_dy_cr2 =ak.any((mT(leppair.lep2,met)>30)& (events.MET.sumEt>45)& (mT(ll_cand,met)<60)&(ak.sum(seljet,axis=-1)==0) ,axis=-1) 
-        req_top_cr1 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass>120),axis=-1) 
-        req_top_cr2 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ak.count(seljet,axis=1)>=2),axis=-1) 
+        #req_dy_cr1 =ak.any((mT(leppair.lep2,met)>30)& (abs(ll_cand.mass-91.18)<15) & (events.MET.sumEt>45)& (mT(ll_cand,met)<60) ,axis=-1) 
+        #req_dy_cr2 =ak.any((mT(leppair.lep2,met)>30)& (events.MET.sumEt>45)& (mT(ll_cand,met)<60)&(ak.sum(jet_conditions,axis=-1)==0) ,axis=-1) 
+        #req_top_cr1 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass>120),axis=-1) 
+        #req_top_cr2 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ak.count(jet_conditions,axis=1)>=2),axis=-1) 
         # req_WW_cr = ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass),axis=-1) 
         
         #print(higgs_cand.type)
         #print(ll_cand.type)
         
         # global already contains Vpt>50 as the lower bound
-        req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.mass<250) & (higgs_cand.delta_phi(ll_cand)>2.5),
+        # global alsohas higgs_cand.mass<250
+        req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.delta_phi(ll_cand)>2.5) & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
                             axis=-1)
         req_sr_Zll_vpt_low  = req_global & req_sr_Zll & ak.any(ll_cand.pt<150, axis=-1)
         req_sr_Zll_vpt_high = req_global & req_sr_Zll & ak.any(ll_cand.pt>150, axis=-1)
@@ -828,20 +785,20 @@ class NanoProcessor(processor.ProcessorABC):
         #selection.add('SR2',ak.to_numpy(req_sr2))
         selection.add('SR_2LL',ak.to_numpy(req_sr_Zll_vpt_low))
         selection.add('SR_2LH',ak.to_numpy(req_sr_Zll_vpt_high))
-        selection.add('top_CR1',ak.to_numpy(req_top_cr1))
-        selection.add('top_CR2',ak.to_numpy(req_top_cr2))
-        selection.add('DY_CR1',ak.to_numpy(req_dy_cr1))
-        selection.add('DY_CR2',ak.to_numpy(req_dy_cr2))
+        #selection.add('top_CR1',ak.to_numpy(req_top_cr1))
+        #selection.add('top_CR2',ak.to_numpy(req_top_cr2))
+        #selection.add('DY_CR1',ak.to_numpy(req_dy_cr1))
+        #selection.add('DY_CR2',ak.to_numpy(req_dy_cr2))
         # selection.add('WW_CR',ak.to_numpy(req_WW_cr))
         
-        eventflav_jet = jets
-        sel_jet =  eventflav_jet[(eventflav_jet.pt > 20) & (abs(eventflav_jet.eta) <= 2.4)&((eventflav_jet.puId > 0)|(eventflav_jet.pt>50)) &(eventflav_jet.jetId>5)&ak.all(eventflav_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventflav_jet.metric_table(leppair.lep2)>0.4,axis=2)]
+        #eventflav_jet = jets
+        #sel_jet =  eventflav_jet[(eventflav_jet.pt > 20) & (abs(eventflav_jet.eta) <= 2.4)&((eventflav_jet.puId > 0)|(eventflav_jet.pt>50)) &(eventflav_jet.jetId>5)&ak.all(eventflav_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventflav_jet.metric_table(leppair.lep2)>0.4,axis=2)]
 
 
-        sel_jetflav =  eventflav_jet[(eventflav_jet.pt > 20) & (abs(eventflav_jet.eta) <= 2.4)&((eventflav_jet.puId > 0)|(eventflav_jet.pt>50)) &(eventflav_jet.jetId>5)&ak.all(eventflav_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventflav_jet.metric_table(leppair.lep2)>0.4,axis=2)]
+        #sel_jetflav =  eventflav_jet[(eventflav_jet.pt > 20) & (abs(eventflav_jet.eta) <= 2.4)&((eventflav_jet.puId > 0)|(eventflav_jet.pt>50)) &(eventflav_jet.jetId>5)&ak.all(eventflav_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventflav_jet.metric_table(leppair.lep2)>0.4,axis=2)]
         # sel_jetflav = ak.mask(sel_jetflav,ak.num(good_leptons)>0)
-        sel_cjet_flav = ak.pad_none(sel_jetflav,1,axis=1)
-        sel_cjet_flav = sel_cjet_flav[:,0]
+        #sel_cjet_flav = ak.pad_none(sel_jetflav,1,axis=1)
+        #sel_cjet_flav = sel_cjet_flav[:,0]
         '''
         sel_jetcsv = eventcsv_jet[(eventcsv_jet.pt > 20) & (abs(eventcsv_jet.eta) <= 2.4)&((eventcsv_jet.puId > 0)|(eventcsv_jet.pt>50)) &(eventcsv_jet.jetId>5)&ak.all(eventcsv_jet.metric_table(leppair.lep1)>0.4,axis=2)&ak.all(eventcsv_jet.metric_table(leppair.lep2)>0.4,axis=2)]
         sel_cjet_csv = ak.pad_none(sel_jetcsv,1,axis=1)
@@ -862,19 +819,26 @@ class NanoProcessor(processor.ProcessorABC):
         elif 'DoubleMuon' in dataset :
             output['cutflow'][dataset]['trigger'] += ak.sum(trigger_mm)
             
+            
+        # Successively add another cut w.r.t. previous line, looks a bit like N-1 histograms
         output['cutflow'][dataset]['global selection'] += ak.sum(req_global)
-        output['cutflow'][dataset]['signal region'] += ak.sum(req_sr&req_global)  
-        output['cutflow'][dataset]['selected jets'] +=ak.sum(req_sr&req_global&(ak.sum(seljet,axis=1)>0))
-        output['cutflow'][dataset]['all ee'] +=ak.sum(req_sr&req_global&(ak.sum(seljet,axis=1)>0&req_llmass&trigger_ee)
-        &(nele==2))
-        output['cutflow'][dataset]['all mumu'] +=ak.sum(req_sr&req_global&(ak.sum(seljet,axis=1)>0)&(nmu==2)&req_llmass&trigger_mm)
-        #output['cutflow'][dataset]['all emu'] +=ak.sum(req_sr&req_global&(ak.sum(seljet,axis=1)>0)&(nele==1)&(nmu==1)&trigger_em)
+        output['cutflow'][dataset]['signal region'] += ak.sum(req_sr_Zll)
+        output['cutflow'][dataset]['selected jets'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) )
+        output['cutflow'][dataset]['all ee'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) & (nele==2) & (trigger_ee))
+        output['cutflow'][dataset]['all mumu'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) & (nmu==2) & trigger_mm)
+        
+        #output['cutflow'][dataset]['all emu'] +=ak.sum(req_sr&req_global&(ak.sum(jet_conditions,axis=1)>0)&(nele==1)&(nmu==1)&trigger_em)
         # output['cutflow'][dataset]['selected jets'] +=ak.sum(ak.num(sel_jet) > 0)
 
         # see comment above
         lepflav = ['ee','mumu']
-        reg = ['SR','SR_2LL','SR_2LH','DY_CR1','DY_CR2','top_CR1','top_CR2']
-            
+        # Old (from H+c)
+        #reg = ['SR','SR_2LL','SR_2LH','DY_CR1','DY_CR2','top_CR1','top_CR2']
+        # That's what I want in the end, all the regions from above
+        #reg = regions    
+        # That's what I have right now:
+        reg = ['SR','SR_2LL','SR_2LH']
+        
         #### write into histograms (i.e. write output)
         for histname, h in output.items():
             for ch in lepflav:
@@ -883,7 +847,7 @@ class NanoProcessor(processor.ProcessorABC):
                     #    cut = selection.all('lepsel', 'global_selection', 'metfilter', 'lumi', r, ch, 'trigger_%s'%(ch))
                     #elif ch == 'ee' or ch == 'mumu' :
                     #cut = selection.all('lepsel','global_selection','metfilter','lumi',r,ch, 'trigger_%s'%(ch),'llmass')
-                    cut = selection.all('lepsel','global_selection','metfilter','lumi',r,ch, 'trigger_%s'%(ch))
+                    cut = selection.all('lepsel','jetsel','global_selection','metfilter','lumi', r, ch, 'trigger_%s'%(ch))
                     llcut = ll_cand[cut]
                     llcut = llcut[:,0]
 
@@ -894,23 +858,33 @@ class NanoProcessor(processor.ProcessorABC):
                             lepsf=eleSFs(lep1cut,self._year,self._corr)*eleSFs(lep2cut,self._year,self._corr)
                         elif ch=='mumu':
                             lepsf=muSFs(lep1cut,self._year,self._corr)*muSFs(lep2cut,self._year,self._corr)
+                            
+                        # This would be emu channel, which does not exist in the VHcc Zll case
+                        '''
                         else:
-                            lepsf=np.where(lep1cut.lep_flav==11,eleSFs(lep1cut,self._year,self._corr)*muSFs(lep2cut,self._year,self._corr),1.)*np.where(lep1cut.lep_flav==13,eleSFs(lep2cut,self._year,self._corr)*muSFs(lep1cut,self._year,self._corr),1.)
+                            lepsf= np.where(lep1cut.lep_flav==11,
+                                           eleSFs(lep1cut,self._year,self._corr)*muSFs(lep2cut,self._year,self._corr),
+                                           1.) \
+                                   * np.where(lep1cut.lep_flav==13,
+                                           eleSFs(lep2cut,self._year,self._corr)*muSFs(lep1cut,self._year,self._corr),
+                                           1.)
+                       '''
                     else : 
-                        lepsf =weights.weight()[cut]
+                        lepsf = weights.weight()[cut]
                     # print(weights.weight()[cut]*lepsf)
                     # print(lepsf)
                     if 'jetflav_' in histname:
-                        fields = {l: normalize(sel_cjet_flav[histname.replace('jetflav_','')],cut) for l in h.fields if l in dir(sel_cjet_flav)}
+                        fields = {l: normalize(leading[histname.replace('jetflav_','')],cut) for l in h.fields if l in dir(leading)}
                         if isRealData:
-                            flavor= ak.zeros_like(normalize(sel_cjet_flav['pt'],cut))
+                            flavor= ak.zeros_like(normalize(leading['pt'],cut))
                         else :
-                            flavor= normalize(sel_cjet_flav.hadronFlavour+1*((sel_cjet_flav.partonFlavour == 0 ) & (sel_cjet_flav.hadronFlavour==0)),cut)
+                            flavor= normalize(leading.hadronFlavour+1*((leading.partonFlavour == 0 ) & (leading.hadronFlavour==0)),cut)
                         h.fill(dataset=dataset, lepflav =ch, region = r, flav=flavor, **fields,weight=weights.weight()[cut]*lepsf)  
                         '''
                         elif 'jetcsv_' in histname:
                             fields = {l: normalize(sel_cjet_csv[histname.replace('jetcsv_','')],cut) for l in h.fields if l in dir(sel_cjet_csv)}
-                            h.fill(dataset=dataset,lepflav =ch, flav=normalize(sel_cjet_csv.hadronFlavour+1*((sel_cjet_csv.partonFlavour == 0 ) & (sel_cjet_csv.hadronFlavour==0)),cut), **fields,weight=weights.weight()[cut]*lepsf)    
+                            h.fill(dataset=dataset,lepflav =ch, flav=normalize(sel_cjet_csv.hadronFlavour+1*((sel_cjet_csv.partonFlavour == 0 ) \
+                            & (sel_cjet_csv.hadronFlavour==0)),cut), **fields,weight=weights.weight()[cut]*lepsf)    
                         '''
                     elif 'lep1_' in histname:
                         fields = {l: ak.fill_none(flatten(lep1cut[histname.replace('lep1_','')]),np.nan) for l in h.fields if l in dir(lep1cut)}
@@ -925,7 +899,7 @@ class NanoProcessor(processor.ProcessorABC):
                         fields = {l: ak.fill_none(flatten(llcut[histname.replace('ll_','')]),np.nan) for l in h.fields if l in dir(llcut)}
                         h.fill(dataset=dataset,lepflav=ch, region = r,**fields,weight=weights.weight()[cut]*lepsf) 
                     else :
-                        output['nj'].fill(dataset=dataset,lepflav=ch,region = r,nj=normalize(ak.num(sel_jet),cut),weight=weights.weight()[cut]*lepsf)                            
+                        output['nj'].fill(dataset=dataset,lepflav=ch,region = r,nj=normalize(ak.num(jet_conditions),cut),weight=weights.weight()[cut]*lepsf)                            
                         # print(ak.type(ak.flatten(mT(lep1cut,met[cut]))),ak.type(weights.weight()[cut]*lepsf))            
                         output['mT1'].fill(dataset=dataset,lepflav=ch,region = r,mt=flatten(mT(lep1cut,met[cut])),weight=weights.weight()[cut]*lepsf)
                         output['mT2'].fill(dataset=dataset,lepflav=ch,region = r,mt=flatten(mT(lep2cut,met[cut])),weight=weights.weight()[cut]*lepsf)
