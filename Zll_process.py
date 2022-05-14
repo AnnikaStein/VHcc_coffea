@@ -247,7 +247,7 @@ class NanoProcessor(processor.ProcessorABC):
         # WIP: region is used later again, could probably define here already and then just refer to it
         #regions = ['SR','SR_Zcc','top_antitop','Z_plus_c','Z_plus_b','Z_plus_l','W_plus_c','W_plus_l']
         # not yet sure how to handle the Zcc one
-        regions = ['SR_2LL','SR_2LH','Zcc','top_antitop','Z_plus_c','Z_plus_b','Z_plus_l','W_plus_c','W_plus_l']
+        regions = ['SR','SR_2LL','SR_2LH','CR_Zcc_2LL','CR_Zcc_2LH','CR_Z_LF_2LL','CR_Z_LF_2LH','CR_Z_HF_2LL','CR_Z_HF_2LH','CR_t_tbar_2LL','CR_t_tbar_2LH']
         region_axis = hist.Cat("region",regions)
         
         # these can stay how they are for the moment, just make sure sufficient information is stored later
@@ -321,7 +321,8 @@ class NanoProcessor(processor.ProcessorABC):
             }
         # ToDo: find out what jetpn stands for, and why it is only referenced in the loop below, but afterwards only commented-out
         #       is it ordering jets by ParticleNet, DeepFlavour etc.? Saw also pt and csv in another workflow.
-        objects=['jetflav','jetpn','lep1','lep2','ll']
+        #objects=['jetflav','jetpn','lep1','lep2','ll']
+        objects=['jetflav','lep1','lep2','ll']
         
         for i in objects:
             if 'jet' in i: 
@@ -404,8 +405,10 @@ class NanoProcessor(processor.ProcessorABC):
         ##############
         if isRealData:
             output['cutflow'][dataset]['all']  += nEvents
+            output['cutflow'][dataset]['all (weight 1)']  += nEvents
         else:
             output['cutflow'][dataset]['all']  += ak.sum(events.genWeight/abs(events.genWeight))
+            output['cutflow'][dataset]['all (weight 1)']  += nEvents
             
         
         #trigger_met = np.zeros(nEvents, dtype='bool')
@@ -712,8 +715,8 @@ class NanoProcessor(processor.ProcessorABC):
         # - (Assuming boosted is only considering p_T > 300) 
         req_global = ak.any((leppair.lep1.pt>20) & (leppair.lep2.pt>20) \
                         & (ll_cand.mass>75) & (ll_cand.mass<150) \
-                        & (ll_cand.pt>50) \
-                        & (leading_with_fsr.pt>20) & (subleading_with_fsr.pt>20) \
+                        & (ll_cand.pt>50) & (njet>=2) \
+                        #& (leading_with_fsr.pt>20) & (subleading_with_fsr.pt>20) \
                         & (higgs_cand.mass<250) \
                         & (leppair.lep1.charge+leppair.lep2.charge==0),  # opposite charge
                         #& (events.MET.pt>20) \
@@ -758,26 +761,51 @@ class NanoProcessor(processor.ProcessorABC):
         selection.add('mumu',ak.to_numpy(nmu==2))
         
         
-        #req_sr = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60)  & (events.MET.sumEt>45)&(ak.sum(jet_conditions,axis=-1)>=1),axis=-1) 
-        #req_sr1 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ll_cand.mass<120),axis=-1) ## due to ttcr1
-        #req_sr2 = ak.any((mT(leppair.lep2,met)>30) & (mT(ll_cand,met)>60) & (abs(ll_cand.mass-91.18)>15) & (events.MET.sumEt>45)&(ak.sum(jet_conditions,axis=-1)==1),axis=-1) ##due to ttcr2& dy2
-        
-        #req_dy_cr1 =ak.any((mT(leppair.lep2,met)>30)& (abs(ll_cand.mass-91.18)<15) & (events.MET.sumEt>45)& (mT(ll_cand,met)<60) ,axis=-1) 
-        #req_dy_cr2 =ak.any((mT(leppair.lep2,met)>30)& (events.MET.sumEt>45)& (mT(ll_cand,met)<60)&(ak.sum(jet_conditions,axis=-1)==0) ,axis=-1) 
-        #req_top_cr1 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass>120),axis=-1) 
-        #req_top_cr2 =ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ak.count(jet_conditions,axis=1)>=2),axis=-1) 
-        # req_WW_cr = ak.any((mT(leppair.lep2,met)>30)& (ll_cand.mass>50) & (events.MET.sumEt>45)& (abs(ll_cand.mass-91.18)>15) & (ll_cand.mass),axis=-1) 
-        
         #print(higgs_cand.type)
         #print(ll_cand.type)
         
         # global already contains Vpt>50 as the lower bound
         # global alsohas higgs_cand.mass<250
-        req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.delta_phi(ll_cand)>2.5) & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
+        req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.delta_phi(ll_cand)>2.5) \
+                            & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
+                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
                             axis=-1)
+        # flip H mass, otherwise same
+        req_cr_Zcc = ak.any((ll_cand.mass>85) & (ll_cand.mass<97) & (higgs_cand.delta_phi(ll_cand)>2.5) \
+                            & (higgs_cand.mass<50) & (higgs_cand.mass>200) \
+                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
+                            axis=-1)
+        # no requirement on m_ll
+        req_cr_Z_LF = ak.any((higgs_cand.delta_phi(ll_cand)>2.5) \
+                            & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
+                            & (deepflavcvsltag(leading)<0.225) & (deepflavcvsbtag(leading)>0.4),
+                            axis=-1)
+        # 
+        req_cr_Z_HF = ak.any((ll_cand.mass>85) & (ll_cand.mass<97) & (higgs_cand.delta_phi(ll_cand)>2.5) \
+                            & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
+                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)<0.4),
+                            axis=-1)
+        
+        req_cr_t_tbar = ak.any(~((ll_cand.mass>0) & (ll_cand.mass<10)) & ~((ll_cand.mass>75) & (ll_cand.mass<120)) \
+                            & (higgs_cand.delta_phi(ll_cand)>2.5) \
+                            & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
+                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)<0.4),
+                            axis=-1)
+        
         req_sr_Zll_vpt_low  = req_global & req_sr_Zll & ak.any(ll_cand.pt<150, axis=-1)
         req_sr_Zll_vpt_high = req_global & req_sr_Zll & ak.any(ll_cand.pt>150, axis=-1)
         
+        req_cr_Zcc_vpt_low  = req_global & req_cr_Zcc & ak.any(ll_cand.pt<150, axis=-1)
+        req_cr_Zcc_vpt_high = req_global & req_cr_Zcc & ak.any(ll_cand.pt>150, axis=-1)
+        
+        req_cr_Z_LF_vpt_low  = req_global & req_cr_Z_LF & ak.any(ll_cand.pt<150, axis=-1)
+        req_cr_Z_LF_vpt_high = req_global & req_cr_Z_LF & ak.any(ll_cand.pt>150, axis=-1)
+        
+        req_cr_Z_HF_vpt_low  = req_global & req_cr_Z_HF & ak.any(ll_cand.pt<150, axis=-1)
+        req_cr_Z_HF_vpt_high = req_global & req_cr_Z_HF & ak.any(ll_cand.pt>150, axis=-1)
+        
+        req_cr_t_tbar_vpt_low  = req_global & req_cr_t_tbar & ak.any(ll_cand.pt<150, axis=-1)
+        req_cr_t_tbar_vpt_high = req_global & req_cr_t_tbar & ak.any(ll_cand.pt>150, axis=-1)
         
         #selection.add('llmass',ak.to_numpy(req_llmass))
         selection.add('SR',ak.to_numpy(req_sr_Zll))
@@ -785,6 +813,14 @@ class NanoProcessor(processor.ProcessorABC):
         #selection.add('SR2',ak.to_numpy(req_sr2))
         selection.add('SR_2LL',ak.to_numpy(req_sr_Zll_vpt_low))
         selection.add('SR_2LH',ak.to_numpy(req_sr_Zll_vpt_high))
+        selection.add('CR_Zcc_2LL',ak.to_numpy(req_cr_Zcc_vpt_low))
+        selection.add('CR_Zcc_2LH',ak.to_numpy(req_cr_Zcc_vpt_high))
+        selection.add('CR_Z_LF_2LL',ak.to_numpy(req_cr_Z_LF_vpt_low))
+        selection.add('CR_Z_LF_2LH',ak.to_numpy(req_cr_Z_LF_vpt_high))
+        selection.add('CR_Z_HF_2LL',ak.to_numpy(req_cr_Z_HF_vpt_low))
+        selection.add('CR_Z_HF_2LH',ak.to_numpy(req_cr_Z_HF_vpt_high))
+        selection.add('CR_t_tbar_2LL',ak.to_numpy(req_cr_t_tbar_vpt_low))
+        selection.add('CR_t_tbar_2LH',ak.to_numpy(req_cr_t_tbar_vpt_high))
         #selection.add('top_CR1',ak.to_numpy(req_top_cr1))
         #selection.add('top_CR2',ak.to_numpy(req_top_cr2))
         #selection.add('DY_CR1',ak.to_numpy(req_dy_cr1))
@@ -821,11 +857,11 @@ class NanoProcessor(processor.ProcessorABC):
             
             
         # Successively add another cut w.r.t. previous line, looks a bit like N-1 histograms
+        output['cutflow'][dataset]['selected jets'] += ak.sum(njet>=2)
         output['cutflow'][dataset]['global selection'] += ak.sum(req_global)
         output['cutflow'][dataset]['signal region'] += ak.sum(req_sr_Zll)
-        output['cutflow'][dataset]['selected jets'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) )
-        output['cutflow'][dataset]['all ee'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) & (nele==2) & (trigger_ee))
-        output['cutflow'][dataset]['all mumu'] +=ak.sum(req_sr_Zll & (ak.sum(jet_conditions,axis=1)>=2) & (nmu==2) & trigger_mm)
+        output['cutflow'][dataset]['all ee'] +=ak.sum(req_sr_Zll & (njet>=2) & (nele==2) & (trigger_ee))
+        output['cutflow'][dataset]['all mumu'] +=ak.sum(req_sr_Zll & (njet>=2) & (nmu==2) & trigger_mm)
         
         #output['cutflow'][dataset]['all emu'] +=ak.sum(req_sr&req_global&(ak.sum(jet_conditions,axis=1)>0)&(nele==1)&(nmu==1)&trigger_em)
         # output['cutflow'][dataset]['selected jets'] +=ak.sum(ak.num(sel_jet) > 0)
@@ -834,10 +870,9 @@ class NanoProcessor(processor.ProcessorABC):
         lepflav = ['ee','mumu']
         # Old (from H+c)
         #reg = ['SR','SR_2LL','SR_2LH','DY_CR1','DY_CR2','top_CR1','top_CR2']
-        # That's what I want in the end, all the regions from above
-        #reg = regions    
         # That's what I have right now:
-        reg = ['SR','SR_2LL','SR_2LH']
+        #reg = ['SR','SR_2LL','SR_2LH']
+        reg = ['SR','SR_2LL','SR_2LH','CR_Zcc_2LL','CR_Zcc_2LH','CR_Z_LF_2LL','CR_Z_LF_2LH','CR_Z_HF_2LL','CR_Z_HF_2LH','CR_t_tbar_2LL','CR_t_tbar_2LH']
         
         #### write into histograms (i.e. write output)
         for histname, h in output.items():
