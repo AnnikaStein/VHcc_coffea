@@ -274,7 +274,7 @@ class NanoProcessor(processor.ProcessorABC):
         # As far as I can tell, we only need DeepFlav currently
         #disc_list = ['btagDeepFlavCvB','btagDeepFlavCvL']
         # BUT: CvB and CvL not available, but can be recalculated
-        disc_list = ['btagDeepFlavC','btagDeepFlavB']
+        disc_list = ['btagDeepFlavC','btagDeepFlavB','btagDeepFlavCvL','btagDeepFlavCvB']
         btag_axes = []
         for d in disc_list:
             # ToDo: find out why -1 bin is irrelevant here
@@ -359,6 +359,7 @@ class NanoProcessor(processor.ProcessorABC):
     def process(self, events):
         output = self.accumulator.identity()
         dataset = events.metadata['dataset']
+        print(dataset)
         # Q: could there be MC that does not have this attribute? Or is it always the case?
         isRealData = not hasattr(events, "genWeight")
         
@@ -566,7 +567,9 @@ class NanoProcessor(processor.ProcessorABC):
         # - one could instead use DeepCSV via bTagDeepCvL
         # - not necessarily use CvL, other combination possible ( CvB | pt | BDT? )
         
-        jets = jets[ak.argsort(deepflavcvsltag(jets), axis=1, ascending=False)]
+        jets["btagDeepFlavCvL"] = deepflavcvsltag(jets)
+        jets["btagDeepFlavCvB"] = deepflavcvsbtag(jets)
+        jets = jets[ak.argsort(jets.btagDeepFlavCvL, axis=1, ascending=False)]
 
         
         # Jets are considered only if the following identification conditions hold, as mentioned in AN
@@ -768,28 +771,28 @@ class NanoProcessor(processor.ProcessorABC):
         # global alsohas higgs_cand.mass<250
         req_sr_Zll = ak.any((ll_cand.mass<105) & (higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
-                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
+                            & (leading.btagDeepFlavCvL>0.225) & (leading.btagDeepFlavCvB>0.4),
                             axis=-1)
         # flip H mass, otherwise same
         req_cr_Zcc = ak.any((ll_cand.mass>85) & (ll_cand.mass<97) & (higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass<50) & (higgs_cand.mass>200) \
-                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)>0.4),
+                            & (leading.btagDeepFlavCvL>0.225) & (leading.btagDeepFlavCvB>0.4),
                             axis=-1)
         # no requirement on m_ll
         req_cr_Z_LF = ak.any((higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
-                            & (deepflavcvsltag(leading)<0.225) & (deepflavcvsbtag(leading)>0.4),
+                            & (leading.btagDeepFlavCvL<0.225) & (leading.btagDeepFlavCvB>0.4),
                             axis=-1)
         # 
         req_cr_Z_HF = ak.any((ll_cand.mass>85) & (ll_cand.mass<97) & (higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
-                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)<0.4),
+                            & (leading.btagDeepFlavCvL>0.225) & (leading.btagDeepFlavCvB<0.4),
                             axis=-1)
         
         req_cr_t_tbar = ak.any(~((ll_cand.mass>0) & (ll_cand.mass<10)) & ~((ll_cand.mass>75) & (ll_cand.mass<120)) \
                             & (higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
-                            & (deepflavcvsltag(leading)>0.225) & (deepflavcvsbtag(leading)<0.4),
+                            & (leading.btagDeepFlavCvL>0.225) & (leading.btagDeepFlavCvB<0.4),
                             axis=-1)
         
         req_sr_Zll_vpt_low  = req_global & req_sr_Zll & ak.any(ll_cand.pt<150, axis=-1)
@@ -909,6 +912,7 @@ class NanoProcessor(processor.ProcessorABC):
                     # print(weights.weight()[cut]*lepsf)
                     # print(lepsf)
                     if 'jetflav_' in histname:
+                        #print(dir(leading))
                         fields = {l: normalize(leading[histname.replace('jetflav_','')],cut) for l in h.fields if l in dir(leading)}
                         if isRealData:
                             flavor= ak.zeros_like(normalize(leading['pt'],cut))
