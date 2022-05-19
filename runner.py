@@ -69,10 +69,10 @@ def get_main_parser():
                              '- `dask/lpc` - custom lpc/condor setup (due to write access restrictions)'
                              '- `dask/lxplus` - custom lxplus/condor setup (due to port restrictions)'
                         )
-    parser.add_argument('-j', '--workers', type=int, default=12,
+    parser.add_argument('-j', '--workers', type=int, default=1,
                         help='Number of workers (cores/threads) to use for multi-worker executors '
                              '(e.g. futures or condor) (default: %(default)s)')
-    parser.add_argument('-s', '--scaleout', type=int, default=6,
+    parser.add_argument('-s', '--scaleout', type=int, default=100,
                         help='Number of nodes to scale out to if using slurm/condor. Total number of '
                              'concurrent threads is ``workers x scaleout`` (default: %(default)s)'
                         )
@@ -86,7 +86,7 @@ def get_main_parser():
     parser.add_argument('--limit', type=int, default=None, metavar='N', help='Limit to the first N files of each dataset in sample JSON')
     parser.add_argument('--chunk', type=int, default=50000000, metavar='N', help='Number of events per process chunk')
     parser.add_argument('--max', type=int, default=None, metavar='N', help='Max number of chunks to run in total')
-    parser.add_argument('--memory', type=str, default='4GB', help='Required memory')
+    parser.add_argument('--memory', type=int, default=2, help='Required memory')
     parser.add_argument('-v','--version',type=str,default='',help='additional info')
     return parser
 
@@ -207,8 +207,9 @@ if __name__ == '__main__':
         ]
 
             condor_extra = [
+            f'cd {os.getcwd()}',
             f'source {os.environ["HOME"]}/.bashrc',
-            'source activate coffea'
+            'conda activate coffea-env'
             ]
 
 
@@ -269,12 +270,13 @@ if __name__ == '__main__':
                         worker_debug=True,
 
                         provider=CondorProvider(
-                         nodes_per_block=1,
-                            mem_per_slot = 4,                            
-                            init_blocks=args.workers,
-                            max_blocks=(args.workers)+2,
+                            nodes_per_block=1,
+                            cores_per_slot=args.workers,
+                            mem_per_slot = args.memory,                            
+                            init_blocks=args.scaleout,
+                            max_blocks=(args.scaleout)+2,
                             worker_init="\n".join(env_extra + condor_extra),
-                            walltime="00:20:00",
+                            walltime="00:03:00",#walltime="00:20:00",
                         ),
                     )
                 ],
@@ -375,8 +377,8 @@ if __name__ == '__main__':
         elif 'condor' in args.executor:
             cluster = HTCondorCluster(
                  cores=args.workers, 
-                 memory='4GB', 
-                 disk='4GB', 
+                 memory='3GB',#4 
+                 disk='4GB',#4 
                  env_extra=env_extra,
             )
         
