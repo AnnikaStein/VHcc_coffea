@@ -210,11 +210,23 @@ class NanoProcessor(processor.ProcessorABC):
         }
         
         
-        # Most likely there are others for EOY, given that these ones contain UL or Legacy in the name...
+        # these ones are from MY / BTV and are most likely not those for EOY VHcc setup (UL / Legacy sounds bit suspicious)
+        '''
         self._lumiMasks = {
             '2016': LumiMask('data/Lumimask/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt'),
             '2017': LumiMask('data/Lumimask/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt'),
             '2018': LumiMask('data/Lumimask/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt')
+        }
+        '''
+        # here are the ones for this case: https://gitlab.cern.ch/aachen-3a/vhcc-nano/-/blob/master/crab/crab_all.py#L33-36
+        #'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
+        #'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt' 
+        #'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
+        # downloaded.
+        self._lumiMasks = {
+            '2016': LumiMask('data/Lumimask/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'),
+            '2017': LumiMask('data/Lumimask/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'),
+            '2018': LumiMask('data/Lumimask/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt')
         }
         
         self._corr = init_corr(year)
@@ -585,7 +597,7 @@ class NanoProcessor(processor.ProcessorABC):
         # Take the first two jets that pass the criteria and check the remaining ones,
         # as well as potentially others, to get FSR jets:
         pick2 = jets[ak.pad_none(ak.local_index(jets, 1)[jet_conditions], 2)[:, :2]]
-        others = jets[ak.concatenate([ak.pad_none(ak.local_index(jets, 1)[jet_conditions], 2)[:, 2:], 
+        others = jets[ak.concatenate([ak.pad_none(ak.local_index(jets, 1)[(jet_conditions) & (fsr_conditions)], 2)[:, 2:], 
                                     ak.local_index(jets, 1)[(~jet_conditions) & (fsr_conditions)]
                                    ], axis=1)]
         
@@ -594,7 +606,7 @@ class NanoProcessor(processor.ProcessorABC):
         #print(rest.type)
         #print(others.type)
 
-        def find_fsr(leading, subleading, others, threshold=3):
+        def find_fsr(leading, subleading, others, threshold=0.8):
             mval1, (a1, b) = leading.metric_table(others, return_combinations=True)
             mval2, (a2, b) = subleading.metric_table(others, return_combinations=True)
 

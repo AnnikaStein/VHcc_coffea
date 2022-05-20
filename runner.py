@@ -97,8 +97,9 @@ if __name__ == '__main__':
     if args.output == parser.get_default('output'):
         index = args.samplejson.rfind('/')+1
         sample_json = args.samplejson[index:]
-        args.output = f'hists_{args.workflow}_{(sample_json).rstrip(".json")}{args.version}.coffea'
-
+        output_filename = f'hists_{args.workflow}_{(sample_json).rstrip(".json")}{args.version}.coffea'
+    else:
+        output_filename = args.output
 
         # load dataset
     with open(args.samplejson) as f:
@@ -406,7 +407,7 @@ if __name__ == '__main__':
                                               chunksize=args.chunk,
                                               maxchunks=args.max)
 
-    save(output, args.output)
+    save(output, output_filename)
 
     print(output)
-    print(f"Saving output to {args.output}")
+    print(f"Saving output to {output_filename}")
