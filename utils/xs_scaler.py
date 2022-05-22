@@ -1,4 +1,6 @@
 import os
+import sys
+
 def read_xs(files):
     import json
 
@@ -6,22 +8,29 @@ def read_xs(files):
     data = json.load(f)
     xs_dict={}
     for obj in data:
-        xs_dict[obj['process_name']]=float(obj['cross_section'])
+        #print(obj)
+        xs_dict[obj]=float(data[obj]['xsec'])
     return xs_dict
-def scale_xs(hist,lumi,events,unscale=False,xsfile="metadata/xsection.json"):
 
-    xs_dict = read_xs(os.getcwd()+"/"+xsfile)
+def scale_xs(hist,lumi,events,unscale=False,year=2017,xsfile="metadata/sample_info_"):
+    xs_dict = read_xs(os.getcwd()+"/"+xsfile+str(year)+'.json')
+    #print(xs_dict)
     scales={}
 
     for key in events:
-        if type(key) != str or key=="Data" : continue
+        #print(key)
+        #continue
+        key_stripped = key.split('/')[1].split('/')[0]
+        if type(key) != str or key=="Data" or key not in xs_dict:
+            continue
         if unscale: 
-            scales[key]=events[key]/(xs_dict[key]*lumi)
+            scales[key]=events[key]/(xs_dict[key_stripped]*lumi)
         else :
-            scales[key]=xs_dict[key]*lumi/events[key]
+            scales[key]=xs_dict[key_stripped]*lumi/events[key]
         #print(scales[key],key)
     hist.scale(scales, axis="dataset")
     return hist
+
 def collate(accumulator, mergemap):
     out = {}
     for group, names in mergemap.items():

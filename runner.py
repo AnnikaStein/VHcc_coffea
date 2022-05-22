@@ -72,7 +72,7 @@ def get_main_parser():
     parser.add_argument('-j', '--workers', type=int, default=1,
                         help='Number of workers (cores/threads) to use for multi-worker executors '
                              '(e.g. futures or condor) (default: %(default)s)')
-    parser.add_argument('-s', '--scaleout', type=int, default=100,
+    parser.add_argument('-s', '--scaleout', type=int, default=1000,
                         help='Number of nodes to scale out to if using slurm/condor. Total number of '
                              'concurrent threads is ``workers x scaleout`` (default: %(default)s)'
                         )
