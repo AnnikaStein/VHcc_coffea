@@ -1,7 +1,8 @@
 import os
 import json
 import argparse
-parser = argparse.ArgumentParser(description='Convert sample information to json')
+parser = argparse.ArgumentParser(description='Convert sample information from AnalysisTools to json format. \
+                                              Note: Should be done before comparing with the list of samples, fetching via DAS, and running workflows.')
 parser.add_argument('-y', '--year', default=r'2017', help='Read sample information from AnalysisTools for this year (default: %(default)s)')
 args = parser.parse_args()
 fset = []
