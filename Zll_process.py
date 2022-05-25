@@ -303,6 +303,7 @@ class NanoProcessor(processor.ProcessorABC):
             
         _hist_event_dict = {
                 'nj'  : hist.Hist("Counts", dataset_axis,  lepflav_axis, region_axis, njet_axis),
+                'sampleFlavSplit'  : hist.Hist("Counts", dataset_axis,  lepflav_axis, region_axis, sampleFlavSplit_axis),
                 #'nbj' : hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, nbjet_axis),
                 #'ncj' : hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, ncjet_axis),
                 #'hj_dr'  : hist.Hist("Counts", dataset_axis, lepflav_axis, region_axis, dr_axis),
@@ -362,6 +363,7 @@ class NanoProcessor(processor.ProcessorABC):
         output = self.accumulator.identity()
         dataset = events.metadata['dataset']
         print(dataset)
+        # ToDo: map from the lenghty dataset (path) to a more readable name
         # Q: could there be MC that does not have this attribute? Or is it always the case?
         isRealData = not hasattr(events, "genWeight")
         
@@ -384,8 +386,7 @@ class NanoProcessor(processor.ProcessorABC):
             # if not only the sign is different, but also the absolute values between events
             # somehow it seems to average out, although I don't see why this is guaranteed
             # must have to do with "LO without interference" where the values are indeed same
-            # technically it should not be necessary for EOY samples? And what if there are
-            # samples where these genWeights do vary in scale, not only sign?
+            # and if they are not same, the differences are consired to be negligible
             output['sumw'][dataset] += ak.sum(events.genWeight/abs(events.genWeight))
             
             
@@ -465,6 +466,103 @@ class NanoProcessor(processor.ProcessorABC):
                     "energy": events.MET.sumEt,
                     }, with_name="PtEtaPhiMLorentzVector"
                 )
+        
+        
+        
+        split_by_flav = False
+        if not isRealData:
+            # ToDo!
+            #if dataset in vjets_datasets:
+            if True:
+                split_by_flav = True
+                # =================================================================================
+                #
+                # #                       Split V+jets BG by flavour, via GenJet
+                #
+                # ---------------------------------------------------------------------------------
+                # https://github.com/mastrolorenzo/AnalysisTools-1/blob/master/plugins/VHccAnalysis.cc#L2184-L2228
+                gen_jet = events.GenJet
+
+                cGenJetTot = ak.sum((gen_jet.hadronFlavour == 4) & (gen_jet.pt > 20) & (gen_jet.eta < 2.4), axis=1)
+                bGenJetTot = ak.sum((gen_jet.hadronFlavour == 5) & (gen_jet.pt > 20) & (gen_jet.eta < 2.4), axis=1)
+
+                tag_cc = cGenJetTot > 2
+                tag_bb = bGenJetTot > 2
+                tag_bc = (bGenJetTot == 1) & (cGenJetTot == 1)
+                tag_cl = (cGenJetTot == 1) & (bGenJetTot == 0)
+                tag_bl = (bGenJetTot == 1) & (cGenJetTot == 0)
+                tag_ll = (cGenJetTot == 0) & (bGenJetTot == 0)
+                
+                sampleFlavSplit = 1 * tag_cc  +  2 * tag_bb  +  3 * tag_bc  +  4 * tag_cl  +  5 * tag_bl  +  6 * tag_ll 
+            # ToDo!
+            #elif dataset in vz_signal_datasets: # WZTo1L1Nu2Q, ZZTo2L2Q, ZZTo2Q2Nu
+            if True:
+                split_by_flav = True
+                # =================================================================================
+                #
+                # #                       Split VZ signal by flavour, via GenPart
+                #
+                # ---------------------------------------------------------------------------------
+                # https://github.com/mastrolorenzo/AnalysisTools-1/blob/master/plugins/VHccAnalysis.cc#L2229-L2264
+                gen_part = events.GenPart
+                mother_indices = ak.local_index(gen_part, 1).mask[(gen_part.pdgId == 23) & (gen_part.statusFlags == 8192)]
+                #mother_indices = ak.local_index(gen_part, 1).mask[(gen_part.pdgId > 0)]
+                #mother_indices = (gen_part.statusFlags == 8192) & (gen_part.pdgId == 23)
+                #print(gen_part.statusFlags)
+                # Over all Events in the dataset
+                #print(mother_indices)
+                #print(ak.sum(mother_indices))
+                #normed_flags = np.unique(normalize(gen_part.statusFlags))
+                #normed_flags = ak.categories(ak.to_categorical(gen_part.statusFlags))
+                #print(8192 in normed_flags)
+                #print(normed_flags)
+                #gen_part.mask[mother_indices]
+                #ak.num(mother_indices) > 0
+                #print(gen_part.genPartIdxMother == mother_indices)
+                #b_from_Z = gen_part.mask[(gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 5)]
+                #c_from_Z = gen_part.mask[(gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 4)]
+                #b_from_Z = gen_part[(gen_part.pdgId == 5)]
+                #c_from_Z = gen_part[(gen_part.pdgId == 4)]
+                b_from_Z = (gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 5)
+                c_from_Z = (gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 4)
+                
+                #print(b_from_Z)
+                #print(c_from_Z)
+                #n_b_from_Z = ak.sum(b_from_Z, axis=-1)
+                #n_c_from_Z = ak.sum(c_from_Z, axis=-1)
+                n_b_from_Z = ak.count(b_from_Z, axis=-1)
+                n_c_from_Z = ak.count(c_from_Z, axis=-1)
+                #n_b_from_Z = ak.sum(ak.any((gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 5), axis=-1))
+                #n_c_from_Z = ak.sum(ak.any((gen_part.genPartIdxMother == mother_indices) & (gen_part.pdgId == 4), axis=-1))
+                #print(n_b_from_Z)
+                #print(n_c_from_Z)
+                #print(n_b_from_Z.type)
+                #print(n_c_from_Z.type)
+                WslashZ_Z_cc = (n_c_from_Z >= 2)
+                WslashZ_Z_bb = (n_b_from_Z >= 2)
+                WslashZ_Z_others = (~WslashZ_Z_cc) & (~WslashZ_Z_bb)
+                
+                sampleFlavSplit = 1 * WslashZ_Z_cc  +  2 * WslashZ_Z_bb  +  3 * WslashZ_Z_others
+                #print(sampleFlavSplit.type)
+                #sys.exit()
+            # ToDo!
+            #elif dataset in some_other_datasets:
+            #    split_by_flav = True
+            '''
+            else if( cursample->doJetFlavorSplit
+                     && ( mInt("sampleIndex")==27 || mInt("sampleIndex")==28
+                      || mInt("sampleIndex")==29 || mInt("sampleIndex")==30
+                      || mInt("sampleIndex")==31 || mInt("sampleIndex")==33
+                      || mInt("sampleIndex")==34 || mInt("sampleIndex")==35
+                      || mInt("sampleIndex")==38 || mInt("sampleIndex")==39
+                      )
+                     ){
+                        *in["sampleIndex"] = mInt("sampleIndex")*100 + 3;
+            '''
+            #    sampleFlavSplit = 3 * 
+            #    split_by_flav = True
+        #else:
+        #    sampleFlavSplit = ak.zeros_like(events)
         
         # =================================================================================
         #
@@ -705,9 +803,6 @@ class NanoProcessor(processor.ProcessorABC):
         # - valid for 2LH and 2LL
         # - valid for any region, no matter if SR or CR
         
-        # Q: Not entirely sure about the p_T(H)<250 here, I might be confusing it with 300 GeV, just copied 250 from the AN & AT
-        # - If one requires this here, wouldn't the range between 250 and 300 GeV be missing in the combination?
-        # - (Assuming boosted is only considering p_T > 300) 
         req_global = ak.any((leppair.lep1.pt>20) & (leppair.lep2.pt>20) \
                         & (ll_cand.mass>75) & (ll_cand.mass<150) \
                         & (ll_cand.pt>50) & (njet>=2) \
@@ -720,19 +815,10 @@ class NanoProcessor(processor.ProcessorABC):
             )
         
         
-        # Some lines that I copied over, but will most likely not play any role
-        #req_llmass = ak.all((abs(ll_cand.mass-91.18) > 15),axis=-1)
-        # print(req_llmass.tolist(),abs(ll_cand.mass-91.18).tolist())
-        # print(dataset,abs(ll_cand.mass-91.18).tolist())  
-        
-        
-        
         
         selection.add('global_selection',ak.to_numpy(req_global))
         
-        # AS: not sure, but shouldn't it be nele==2 here? Also for H+c
-        # also: isn't this pt>13 redundant, given that all e and mu passed the previous cut of pt>13 in H+c, or 20 for VHcc?
-        #mask2e =  req_sr&req_global & (nele==1)& (event_e[:,0].pt>25) & (event_e[:,1].pt>13)&req_llmass        
+        
         mask2e = req_global & (nele==2)
         mask2mu = req_global & (nmu==2)
         
@@ -767,7 +853,7 @@ class NanoProcessor(processor.ProcessorABC):
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
                             & (leading.btagDeepFlavCvL<0.225) & (leading.btagDeepFlavCvB>0.4),
                             axis=-1)
-        # 
+        
         req_cr_Z_HF = ak.any((ll_cand.mass>85) & (ll_cand.mass<97) & (higgs_cand.delta_phi(ll_cand)>2.5) \
                             & (higgs_cand.mass>=50) & (higgs_cand.mass<=200) \
                             & (leading.btagDeepFlavCvL>0.225) & (leading.btagDeepFlavCvB<0.4),
@@ -831,6 +917,8 @@ class NanoProcessor(processor.ProcessorABC):
             
             
         # Successively add another cut w.r.t. previous line, looks a bit like N-1 histograms
+        if not isRealData:
+            output['cutflow'][dataset]['GenPart VZ signal'] += ak.sum(mother_indices)
         output['cutflow'][dataset]['jet selection'] += ak.sum(njet>=2)
         output['cutflow'][dataset]['global selection'] += ak.sum(req_global)
         output['cutflow'][dataset]['signal region'] += ak.sum(req_global & req_sr_Zll)
@@ -917,7 +1005,12 @@ class NanoProcessor(processor.ProcessorABC):
                         fields = {l: normalize(higgs_cand[histname.replace('higgs_','')],cut) for l in h.fields if l in dir(higgs_cand)}
                         h.fill(dataset=dataset,lepflav=ch, region = r,**fields,weight=weights.weight()[cut]*lepsf) 
                     else :
-                        output['nj'].fill(dataset=dataset,lepflav=ch,region = r,nj=normalize(ak.num(jet_conditions),cut),weight=weights.weight()[cut]*lepsf)                            
+                        output['nj'].fill(dataset=dataset,lepflav=ch,region = r,nj=normalize(ak.num(jet_conditions),cut),weight=weights.weight()[cut]*lepsf) 
+                        if isRealData or ~split_by_flav:
+                            sampleFlavSplit = ak.zeros_like(normalize(leading['pt'],cut))
+                            output['sampleFlavSplit'].fill(dataset=dataset,lepflav=ch,region = r, sampleFlavSplit=sampleFlavSplit,weight=weights.weight()[cut]*lepsf)  
+                        else:
+                            output['sampleFlavSplit'].fill(dataset=dataset,lepflav=ch,region = r, sampleFlavSplit=normalize(sampleFlavSplit,cut),weight=weights.weight()[cut]*lepsf)                            
                         # print(ak.type(ak.flatten(mT(lep1cut,met[cut]))),ak.type(weights.weight()[cut]*lepsf))            
                         #output['mT1'].fill(dataset=dataset,lepflav=ch,region = r,mt=flatten(mT(lep1cut,met[cut])),weight=weights.weight()[cut]*lepsf)
                         #output['mT2'].fill(dataset=dataset,lepflav=ch,region = r,mt=flatten(mT(lep2cut,met[cut])),weight=weights.weight()[cut]*lepsf)
