@@ -1,5 +1,5 @@
 {
-    "/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ZH125ToCC_ZNuNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_18.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_4.root",
@@ -18,9 +18,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_14.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_6.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_5.root"
-    ],
-    "/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132030/0000/nano_5.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132105/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132105/0000/nano_45.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132105/0000/nano_20.root",
@@ -77,7 +75,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132105/0000/nano_27.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132105/0000/nano_49.root"
     ],
-    "/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ZH125ToCC_ZLL_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131955/0000/nano_9.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131955/0000/nano_4.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131955/0000/nano_14.root",
@@ -100,7 +98,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131955/0000/nano_13.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131955/0000/nano_5.root"
     ],
-    "/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ZH125_ZNuNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_4.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_35.root",
@@ -135,9 +133,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_16.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_8.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_27.root"
-    ],
-    "/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v2/200506_131621/0000/nano_27.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131544/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131544/0000/nano_15.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131544/0000/nano_3.root",
@@ -157,7 +153,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131544/0000/nano_8.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131544/0000/nano_1.root"
     ],
-    "/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ZH125_ZLL_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131509/0000/nano_34.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131509/0000/nano_20.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131509/0000/nano_1.root",
@@ -197,7 +193,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131509/0000/nano_31.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131509/0000/nano_32.root"
     ],
-    "/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WplusH125ToCC_WLNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_16.root",
@@ -214,9 +210,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_3.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_5.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_4.root"
-    ],
-    "/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132510/0000/nano_4.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132546/0000/nano_9.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132546/0000/nano_28.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132546/0000/nano_30.root",
@@ -252,7 +246,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132546/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132546/0000/nano_19.root"
     ],
-    "/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WplusH125_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_8.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_20.root",
@@ -289,9 +283,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_34.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_25.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_1.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_19.root"
-    ],
-    "/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_v14-v1/200506_131920/0000/nano_19.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131844/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131844/0000/nano_15.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131844/0000/nano_6.root",
@@ -310,7 +302,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131844/0000/nano_1.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131844/0000/nano_2.root"
     ],
-    "/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WminusH125ToCC_WLNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_7.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_9.root",
@@ -329,9 +321,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_13.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_16.root"
-    ],
-    "/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v3/200506_132359/0000/nano_16.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132435/0000/nano_56.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132435/0000/nano_3.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132435/0000/nano_1.root",
@@ -395,7 +385,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132435/0000/nano_7.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToCC_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132435/0000/nano_35.root"
     ],
-    "/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WminusH125_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131807/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131807/0000/nano_14.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131807/0000/nano_1.root",
@@ -417,7 +407,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131807/0000/nano_18.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131807/0000/nano_20.root"
     ],
-    "/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125ToCC_ZNuNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_14.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_13.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_12.root",
@@ -431,9 +421,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_2.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_8.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_9.root"
-    ],
-    "/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132249/0000/nano_9.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132325/0000/nano_15.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132325/0000/nano_25.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132325/0000/nano_6.root",
@@ -494,7 +482,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132325/0000/nano_54.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132325/0000/nano_56.root"
     ],
-    "/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125ToCC_ZLL_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_5.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_1.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_3.root",
@@ -510,9 +498,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_8.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_9.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_14.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_6.root"
-    ],
-    "/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_132139/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132214/0000/nano_24.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132214/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132214/0000/nano_34.root",
@@ -581,7 +567,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132214/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToCC_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-ext1-v1/200506_132214/0000/nano_27.root"
     ],
-    "/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125_ZNuNu_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131732/0000/nano_16.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131732/0000/nano_2.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131732/0000/nano_17.root",
@@ -609,7 +595,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131732/0000/nano_15.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131732/0000/nano_14.root"
     ],
-    "/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/coli-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125_ZLL_powheg": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131655/0000/nano_4.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131655/0000/nano_1.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131655/0000/nano_16.root",
@@ -635,7 +621,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131655/0000/nano_14.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200506_131655/0000/nano_12.root"
     ],
-    "/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/hqu-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125ToTauTau_ZNuNu": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141518/0000/nano_69.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141518/0000/nano_40.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141518/0000/nano_65.root",
@@ -708,7 +694,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141518/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToNuNu_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141518/0000/nano_27.root"
     ],
-    "/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/hqu-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ggZH125ToTauTau_ZLL": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141552/0000/nano_12.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141552/0000/nano_21.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141552/0000/nano_34.root",
@@ -774,7 +760,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141552/0000/nano_6.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ggZH_HToTauTau_ZToLL_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141552/0000/nano_32.root"
     ],
-    "/ZHToTauTau_M125_13TeV_powheg_pythia8/hqu-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "ZH125ToTauTau": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141443/0000/nano_13.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141443/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141443/0000/nano_18.root",
@@ -814,7 +800,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141443/0000/nano_7.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/ZHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141443/0000/nano_25.root"
     ],
-    "/WplusHToTauTau_M125_13TeV_powheg_pythia8/hqu-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WplusH125ToTauTau": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141625/0000/nano_23.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141625/0000/nano_28.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141625/0000/nano_6.root",
@@ -847,7 +833,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141625/0000/nano_11.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WplusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141625/0000/nano_26.root"
     ],
-    "/WminusHToTauTau_M125_13TeV_powheg_pythia8/hqu-NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1-6f7c69ffdbb83072d4913e5f3cf0008f/USER": [
+    "WminusH125ToTauTau": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141658/0000/nano_18.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141658/0000/nano_16.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/mc/WminusHToTauTau_M125_13TeV_powheg_pythia8/NanoTuples-30Apr2020_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_v14-v1/200624_141658/0000/nano_6.root",

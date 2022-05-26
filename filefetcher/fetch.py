@@ -1,5 +1,9 @@
 # Use like:
 # python fetch.py -i ../samples/mcsamples_2017_higgs_used.txt -s phys03 -o mcsamples_2017_higgs_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_used.txt -s phys03 -o mcsamples_2017_vjets_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_ext_used.txt -s phys03 -o mcsamples_2017_vjets_ext_used
+# python fetch.py -i ../samples/mcsamples_2017_other_used.txt -s phys03 -o mcsamples_2017_other_used
+# python fetch.py -i ../samples/datasamples_2017_used.txt -s phys03 -o datasamples_2017_used
 import os
 import json
 import argparse
@@ -19,6 +23,15 @@ with open(args.input) as fp:
 
 fdict = {}
 
+year = '2017' if '2017' in args.input else ('2016' if '2016' in args.input else '2018')
+with open(f'../metadata/sample_info_{year}.json') as si:
+    info = json.load(si)
+    info_dict={}
+    for obj in info:
+        #print(obj)
+        info_dict[obj]=info[obj]['name']
+
+
 instance = 'prod/'+args.site
 
 
@@ -28,11 +41,14 @@ for dataset in fset:
     print(dataset)
     flist = os.popen(("/cvmfs/cms.cern.ch/common/dasgoclient -query='instance={} file dataset={}'").format(instance,fset[fset.index(dataset)].rstrip())).read().split('\n')
     dictname = dataset.rstrip()
+    dictname = dictname[1:].split('/')[0]
+    dictname = info_dict[dictname]
     if dictname not in fdict:
         fdict[dictname] = [xrd+f for f in flist if len(f) > 1]
     else: #needed to collect all data samples into one common key "Data" (using append() would introduce a new element for the key)
         fdict[dictname].extend([xrd+f for f in flist if len(f) > 1])
 
+#print(fdict)
 #pprint.pprint(fdict, depth=1)
 
 with open('../metadata/%s.json'%(args.output), 'w') as fp:
