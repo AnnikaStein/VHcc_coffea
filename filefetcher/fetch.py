@@ -1,10 +1,25 @@
 # Use like:
 # python fetch.py -i ../samples/mcsamples_2017_higgs_used.txt -s phys03 -o mcsamples_2017_higgs_used
+# python fetch.py -i ../samples/mcsamples_2017_higgs_Wln_used.txt -s phys03 -o mcsamples_2017_higgs_Wln_used
+# python fetch.py -i ../samples/mcsamples_2017_higgs_Zll_used.txt -s phys03 -o mcsamples_2017_higgs_Zll_used
+# python fetch.py -i ../samples/mcsamples_2017_higgs_Znn_used.txt -s phys03 -o mcsamples_2017_higgs_Znn_used
 # python fetch.py -i ../samples/mcsamples_2017_vjets_used.txt -s phys03 -o mcsamples_2017_vjets_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_Wln_used.txt -s phys03 -o mcsamples_2017_vjets_Wln_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_Zll_used.txt -s phys03 -o mcsamples_2017_vjets_Zll_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_Znn_used.txt -s phys03 -o mcsamples_2017_vjets_Znn_used
 # python fetch.py -i ../samples/mcsamples_2017_vjets_ext_used.txt -s phys03 -o mcsamples_2017_vjets_ext_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_ext_Wln_used.txt -s phys03 -o mcsamples_2017_vjets_ext_Wln_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_ext_Zll_used.txt -s phys03 -o mcsamples_2017_vjets_ext_Zll_used
+# python fetch.py -i ../samples/mcsamples_2017_vjets_ext_Znn_used.txt -s phys03 -o mcsamples_2017_vjets_ext_Znn_used
 # python fetch.py -i ../samples/mcsamples_2017_other_used.txt -s phys03 -o mcsamples_2017_other_used
+# python fetch.py -i ../samples/mcsamples_2017_other_Wln_used.txt -s phys03 -o mcsamples_2017_other_Wln_used
+# python fetch.py -i ../samples/mcsamples_2017_other_Zll_used.txt -s phys03 -o mcsamples_2017_other_Zll_used
+# python fetch.py -i ../samples/mcsamples_2017_other_Znn_used.txt -s phys03 -o mcsamples_2017_other_Znn_used
 # python fetch.py -i ../samples/datasamples_2017_used.txt -s phys03 -o datasamples_2017_used
-import os
+# python fetch.py -i ../samples/datasamples_2017_Wln_used.txt -s phys03 -o datasamples_2017_Wln_used
+# python fetch.py -i ../samples/datasamples_2017_Zll_used.txt -s phys03 -o datasamples_2017_Zll_used
+# python fetch.py -i ../samples/datasamples_2017_Znn_used.txt -s phys03 -o datasamples_2017_Znn_used
+import os, sys
 import json
 import argparse
 parser = argparse.ArgumentParser(description='Create json with individual paths for specified datasets.\

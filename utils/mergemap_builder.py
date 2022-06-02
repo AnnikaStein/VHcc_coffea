@@ -12,16 +12,16 @@ args = parser.parse_args()
 
 
 if args.year == '2016':
-    from samples_2016_FlavSplit_vhcc import get_samples_2016
+    from samples_2016_FlavSplit_vhcc import get_samples_2016 as get_samples
 elif args.year == '2017':
-    from samples_2017_FlavSplit_vhcc import get_samples_2017
+    from samples_2017_FlavSplit_vhcc import get_samples_2017 as get_samples
 elif args.year == '2018':
-    from samples_2018_FlavSplit_vhcc import get_samples_2018
+    from samples_2018_FlavSplit_vhcc import get_samples_2018 as get_samples
     
 
 
 
-samples_dict = get_samples_2017(args.channel, signal_overlay=True, VJetsNLO=True)
+samples_dict = get_samples(args.channel, signal_overlay=True, VJetsNLO=True)
 
 stacks = []
 stacks_dict = {}
