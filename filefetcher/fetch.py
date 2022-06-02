@@ -57,7 +57,10 @@ for dataset in fset:
     flist = os.popen(("/cvmfs/cms.cern.ch/common/dasgoclient -query='instance={} file dataset={}'").format(instance,fset[fset.index(dataset)].rstrip())).read().split('\n')
     dictname = dataset.rstrip()
     dictname = dictname[1:].split('/')[0]
-    dictname = info_dict[dictname]
+    if dictname in ['SingleMuon','DoubleMuon','SingleElectron','DoubleElectron','DoubleEG','EGamma','MET']:
+        dictname = dataset.rstrip()
+    else:
+        dictname = info_dict[dictname]
     if dictname not in fdict:
         fdict[dictname] = [xrd+f for f in flist if len(f) > 1]
     else: #needed to collect all data samples into one common key "Data" (using append() would introduce a new element for the key)

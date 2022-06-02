@@ -1,5 +1,5 @@
 {
-    "Run2017_Mu_ReMiniAOD": [
+    "/SingleMuon/hqu-NanoTuples-30Apr2020_Run2017F-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0000/nano_25.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0000/nano_52.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0000/nano_89.root",
@@ -2399,7 +2399,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0000/nano_228.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0001/nano_1201.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0002/nano_2276.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0002/nano_2253.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210215/0002/nano_2253.root"
+    ],
+    "/SingleMuon/hqu-NanoTuples-30Apr2020_Run2017E-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_582.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_595.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_592.root",
@@ -3921,7 +3923,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_818.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_788.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_814.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_773.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210142/0000/nano_773.root"
+    ],
+    "/SingleMuon/hqu-NanoTuples-30Apr2020_Run2017D-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_646.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_148.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_211.root",
@@ -4611,7 +4615,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_489.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_330.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_150.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_248.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210110/0000/nano_248.root"
+    ],
+    "/SingleMuon/hqu-NanoTuples-30Apr2020_Run2017C-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_197.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_255.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_254.root",
@@ -6149,7 +6155,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_871.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_901.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_831.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_908.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210038/0000/nano_908.root"
+    ],
+    "/SingleMuon/hqu-NanoTuples-30Apr2020_Run2017B-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210006/0000/nano_119.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210006/0000/nano_97.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210006/0000/nano_207.root",
@@ -7448,7 +7456,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210006/0000/nano_582.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210006/0000/nano_434.root"
     ],
-    "Run2017_Ele_ReMiniAOD": [
+    "/SingleElectron/hqu-NanoTuples-30Apr2020_Run2017F-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0000/nano_362.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0000/nano_496.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0000/nano_526.root",
@@ -8710,7 +8718,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0000/nano_413.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0001/nano_1005.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0000/nano_794.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0001/nano_1037.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200430_210649/0001/nano_1037.root"
+    ],
+    "/SingleElectron/hqu-NanoTuples-30Apr2020_Run2017E-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210616/0000/nano_84.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210616/0000/nano_200.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200430_210616/0000/nano_354.root",
@@ -9707,7 +9717,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200523_195651/0000/nano_4.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200523_195651/0000/nano_2.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200523_195651/0000/nano_5.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200523_195651/0000/nano_3.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200523_195651/0000/nano_3.root"
+    ],
+    "/SingleElectron/hqu-NanoTuples-30Apr2020_Run2017D-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_325.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_354.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_341.root",
@@ -10194,7 +10206,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_320.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_398.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_452.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_464.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200430_210542/0000/nano_464.root"
+    ],
+    "/SingleElectron/hqu-NanoTuples-30Apr2020_Run2017C-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_76.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_78.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_61.root",
@@ -11463,7 +11477,9 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_482.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_379.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_424.root",
-        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_582.root",
+        "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200430_210506/0000/nano_582.root"
+    ],
+    "/SingleElectron/hqu-NanoTuples-30Apr2020_Run2017B-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210432/0000/nano_257.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210432/0000/nano_304.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210432/0000/nano_70.root",
@@ -12030,7 +12046,7 @@
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210432/0000/nano_455.root",
         "root://xrootd-cms.infn.it///store/group/cmst3/group/vhcc/nanoTuples/v2_30Apr2020/2017/data/SingleElectron/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200430_210432/0000/nano_453.root"
     ],
-    "Run2017_DoubleMu_ReMiniAOD": [
+    "/DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017F-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_666.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_137.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_728.root",
@@ -12800,7 +12816,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_189.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_554.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_675.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_209.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202801/0000/nano_209.root"
+    ],
+    "/DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017E-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_54.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_160.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_273.root",
@@ -13299,7 +13317,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_185.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_237.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_111.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_387.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202730/0000/nano_387.root"
+    ],
+    "/DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017D-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_46.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_118.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_167.root",
@@ -13523,7 +13543,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_64.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_17.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_86.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_89.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202659/0000/nano_89.root"
+    ],
+    "/DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017C-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_285.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_33.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_324.root",
@@ -13978,7 +14000,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_384.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_111.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_99.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_222.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202628/0000/nano_222.root"
+    ],
+    "/DoubleMuon/hqu-NanoTuples-30Apr2020_Run2017B-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202558/0000/nano_37.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202558/0000/nano_82.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202558/0000/nano_106.root",
@@ -14113,7 +14137,7 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202558/0000/nano_54.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleMuon/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202558/0000/nano_85.root"
     ],
-    "Run2017_DoubleEle_ReMiniAOD": [
+    "/DoubleEG/hqu-NanoTuples-30Apr2020_Run2017F-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_363.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_556.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_606.root",
@@ -14838,7 +14862,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_249.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_445.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_441.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_585.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017F-31Mar2018-v1/200620_202527/0000/nano_585.root"
+    ],
+    "/DoubleEG/hqu-NanoTuples-30Apr2020_Run2017E-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_536.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_211.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_372.root",
@@ -15382,7 +15408,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_346.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_127.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_332.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_243.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017E-31Mar2018-v1/200620_202456/0000/nano_243.root"
+    ],
+    "/DoubleEG/hqu-NanoTuples-30Apr2020_Run2017D-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_253.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_161.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_86.root",
@@ -15635,7 +15663,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_223.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_226.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_225.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_250.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017D-31Mar2018-v1/200620_202426/0000/nano_250.root"
+    ],
+    "/DoubleEG/hqu-NanoTuples-30Apr2020_Run2017C-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_346.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_407.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_594.root",
@@ -16232,7 +16262,9 @@
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_364.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_384.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_438.root",
-        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_571.root",
+        "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017C-31Mar2018-v1/200620_202355/0000/nano_571.root"
+    ],
+    "/DoubleEG/hqu-NanoTuples-30Apr2020_Run2017B-31Mar2018-v1-b2e5aecd7d318124ef1b7f48a4318be4/USER": [
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202325/0000/nano_367.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202325/0000/nano_339.root",
         "root://xrootd-cms.infn.it///store/group/phys_higgs/hbb/ntuples/VHcc/NanoV7withAK15/nanoTuples/v2_30Apr2020/2017/data/DoubleEG/NanoTuples-30Apr2020_Run2017B-31Mar2018-v1/200620_202325/0000/nano_327.root",
