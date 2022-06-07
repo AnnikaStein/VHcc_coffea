@@ -135,6 +135,14 @@ python runner.py  --json metadata/mcsamples_higgs_2017.json --limit 1 --wf Zll -
 ```
 python runner.py  --json metadata/mcsamples_higgs_2017.json --limit 1 --wf Zll -j ${njobs} --executor parsl/condor --memory ${memory_per_jobs}
 ```
+Examples:
+```
+# python runner.py --wf Zll -o datasamples_2017_Zll_used.coffea --json metadata/datasamples_2017_Zll_used.json --executor parsl/condor
+# python runner.py --wf Zll -o mcsamples_2017_other_Zll_used.coffea --json metadata/mcsamples_2017_other_Zll_used.json --executor parsl/condor
+# python runner.py --wf Zll -o mcsamples_2017_vjets_Zll_used.coffea --json metadata/mcsamples_2017_vjets_Zll_used.json --executor parsl/condor
+# python runner.py --wf Zll -o mcsamples_2017_vjets_ext_Zll_used.coffea --json metadata/mcsamples_2017_vjets_ext_Zll_used.json --executor parsl/condor
+# python runner.py --wf Zll -o mcsamples_2017_higgs_Zll_used.coffea --json metadata/mcsamples_2017_higgs_Zll_used.json --executor parsl/condor
+```
 ### Scale out @HPC Aachen
 
 ```

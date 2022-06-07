@@ -69,10 +69,10 @@ def get_main_parser():
                              '- `dask/lpc` - custom lpc/condor setup (due to write access restrictions)'
                              '- `dask/lxplus` - custom lxplus/condor setup (due to port restrictions)'
                         )
-    parser.add_argument('-j', '--workers', type=int, default=1,
+    parser.add_argument('-j', '--workers', type=int, default=10,
                         help='Number of workers (cores/threads) to use for multi-worker executors '
                              '(e.g. futures or condor) (default: %(default)s)')
-    parser.add_argument('-s', '--scaleout', type=int, default=1000,
+    parser.add_argument('-s', '--scaleout', type=int, default=150,
                         help='Number of nodes to scale out to if using slurm/condor. Total number of '
                              'concurrent threads is ``workers x scaleout`` (default: %(default)s)'
                         )
@@ -379,7 +379,8 @@ if __name__ == '__main__':
             cluster = HTCondorCluster(
                  cores=args.workers, 
                  memory='3GB',#4 
-                 disk='4GB',#4 
+                 #disk='20GB',#4 
+                 #walltime='00:03:00',
                  env_extra=env_extra,
             )
         

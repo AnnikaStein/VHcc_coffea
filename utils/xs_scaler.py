@@ -13,14 +13,16 @@ def read_xs(files):
     return xs_dict
 
 def scale_xs(hist,lumi,events,unscale=False,year=2017,xsfile="metadata/sample_info_"):
-    xs_dict = read_xs(os.getcwd()+"/"+xsfile+str(year)+'.json')
+    xs_dict = read_xs(os.getcwd()+"/"+xsfile+str(year)+'_reversed.json')
     #print(xs_dict)
     scales={}
 
     for key in events:
         #print(key)
         #continue
-        key_stripped = key.split('/')[1].split('/')[0]
+        #key_stripped = key.split('/')[1].split('/')[0]
+        key_stripped = key
+        print(key_stripped)
         if type(key) != str or key=="Data" or key not in xs_dict:
             continue
         if unscale: 
