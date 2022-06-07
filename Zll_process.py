@@ -539,8 +539,8 @@ class NanoProcessor(processor.ProcessorABC):
                 cGenJetTot = ak.sum((gen_jet.hadronFlavour == 4) & (gen_jet.pt > 20) & (abs(gen_jet.eta) < 2.4), axis=1)
                 bGenJetTot = ak.sum((gen_jet.hadronFlavour == 5) & (gen_jet.pt > 20) & (abs(gen_jet.eta) < 2.4), axis=1)
 
-                tag_cc = cGenJetTot > 2
-                tag_bb = bGenJetTot > 2
+                tag_cc = cGenJetTot >= 2
+                tag_bb = bGenJetTot >= 2
                 tag_bc = (bGenJetTot == 1) & (cGenJetTot == 1)
                 tag_cl = (cGenJetTot == 1) & (bGenJetTot == 0)
                 tag_bl = (bGenJetTot == 1) & (cGenJetTot == 0)
@@ -856,8 +856,8 @@ class NanoProcessor(processor.ProcessorABC):
             out2, metric2 =  res(mval2, b)
 
             out1 = out1.mask[(metric1 <= threshold) & (metric1 < metric2)]
-            #out2 = out2.mask[(metric2 <= threshold) & (metric2 < metric1)]
-            out2 = out2.mask[(metric1 <= threshold) & (metric2 < metric1)]
+            out2 = out2.mask[(metric2 <= threshold) & (metric2 < metric1)]
+            #out2 = out2.mask[(metric1 <= threshold) & (metric2 < metric1)]
             return out1[:, 0, ...], out2[:, 0, ...]
 
         #leading = pick2[:, 0]
@@ -1079,7 +1079,7 @@ class NanoProcessor(processor.ProcessorABC):
                 for ch in lepflav:
                     for r in reg:
                         #cut = selection.all('lepsel','jetsel','global_selection','metfilter','lumi', r, ch, s, 'trigger_%s'%(ch))
-                        cut = selection.all('lepsel','jetsel','global_selection','metfilter','lumi', r, ch, 'trigger_%s'%(ch))
+                        cut = selection.all('lepsel','jetsel','global_selection','metfilter','lumi', r, ch, s, 'trigger_%s'%(ch))
                         llcut = ll_cand[cut]
                         llcut = llcut[:,0]
 
